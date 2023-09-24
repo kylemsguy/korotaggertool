@@ -8,8 +8,8 @@ function parse_timestamp(timestamp) {
     let total = 0;
 
     if (timestamp.length == 0) {
-        console.log("Malformed timestamp " + timestamp);
-        return undefined;
+        console.log("Malformed timestamp (empty)");
+        return NaN;
     }
     let buffer = [];
     for (let i = 0; i < timestamp.length; i++) {
@@ -17,8 +17,8 @@ function parse_timestamp(timestamp) {
             buffer.push(timestamp[i]);
         } else {
             if (buffer.length == 0) {
-                console.log("Malformed timestamp " + timestamp);
-                return undefined;
+                console.log("Malformed timestamp <" + timestamp + ">");
+                return NaN;
             }
 
             const toAdd = parseInt(buffer.join(""));
@@ -33,8 +33,8 @@ function parse_timestamp(timestamp) {
                     total += toAdd;
                     break;
                 default:
-                    console.log("Malformed timestamp " + timestamp);
-                    return timestamp;
+                    console.log("Malformed timestamp <" + timestamp + ">");
+                    return NaN;
             }
             buffer = [];
         }
