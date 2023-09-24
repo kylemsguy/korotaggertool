@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Korotagger tool</title>
+    </head>
+    <body>
+        <div>Input:</div>
+        <textarea id="input" rows="10" cols="50"></textarea>
+
+        <div>Output:</div>
+        <textarea id="output" rows="30" cols="50"></textarea>
+        <button id="convert">Convert!</button>
+        <script language="Javascript">
+            const convert_button = document.getElementById("convert");
+            const input_textarea = document.getElementById("input");
+            const output_textarea = document.getElementById("output");
+            convert_button.onclick = ev => {
+                const parsed = parseTags(input_textarea.value);
+                const output = renderPreferred(parsed);
+                output_textarea.value = output;
+            };
+
+            function parse_timestamp(timestamp) {
+                /** 
+                 * Note: this doesn't handle some malformed strings, like 1h1h1h1h or 1s1h1m
+                 * All this does is takes each sequence and sums it up
+                 * 
+                 * Note 2: This seems to be how YouTube is handling it, so whatever.
+                 */
+                let total = 0;
+
+                if(timestamp.length == 0) {
+                    console.log("Malformed timestamp " + timestamp);
+                    return timestamp;
+                }
+                let buffer = [];
+                for(let i = 0; i < timestamp.length; i++){
+                    if (!isNaN(timestamp[i])){
+                        buffer.push(timestamp[i]);
+                    } else {
+                        if (buffer.length == 0) {
+                            console.log("Malformed timestamp " + timestamp);
+                            return timestamp;
+                        }
+
+                        const toAdd = parseInt(buffer.join(""));
+                        switch(timestamp[i]) {
+                            case 'h':
+                                total += toAdd * 3600;
+                                break;
+                            case 'm':
+                                total += toAdd * 60;
+                                break;
+                            case 's':
+                                total += toAdd;
+                                break;
+                            default:
+                                console.log("Malformed timestamp " + timestamp);
+                                return timestamp;
+                        }
+                        buffer = [];
+                    }
+                }
+                return total;
+            }
+
+            function parseSingleTagKorotagger(tag) {
+                const elements = tag.split(" ");
+                const timestamp_raw = elements[elements.length - 1];
+                const tag_text = elements.slice(0, elements.length - 1).join(" ");
+                
+                return {
+                    "text": tag_text,
+                    "time": parse_timestamp(timestamp_raw)
+                };
+            }
+
+            function parseTags(input) {
+                const tags = [];
+                const split_input = input.replace(/\r/g, "").split(/\n/);
+                return split_input.map(parseSingleTagKorotagger).filter(val => typeof val.time == "number");
+            }
+
+            function renderPreferred(tags_json) {
+                console.log(tags_json);
+            }
+        </script>
+    </body>
+</html>
