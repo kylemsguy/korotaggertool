@@ -8,7 +8,7 @@
         <textarea id="input" rows="10" cols="50"></textarea>
 
         <div>Output:</div>
-        <textarea id="output" rows="30" cols="50"></textarea>
+        <textarea id="output" rows="70" cols="100"></textarea>
         <button id="convert">Convert!</button>
         <script language="Javascript">
             const convert_button = document.getElementById("convert");
@@ -31,7 +31,7 @@
 
                 if(timestamp.length == 0) {
                     console.log("Malformed timestamp " + timestamp);
-                    return timestamp;
+                    return undefined;
                 }
                 let buffer = [];
                 for(let i = 0; i < timestamp.length; i++){
@@ -40,7 +40,7 @@
                     } else {
                         if (buffer.length == 0) {
                             console.log("Malformed timestamp " + timestamp);
-                            return timestamp;
+                            return undefined;
                         }
 
                         const toAdd = parseInt(buffer.join(""));
@@ -68,21 +68,36 @@
                 const elements = tag.split(" ");
                 const timestamp_raw = elements[elements.length - 1];
                 const tag_text = elements.slice(0, elements.length - 1).join(" ");
+                const timestamp = parse_timestamp(timestamp_raw);
                 
-                return {
-                    "text": tag_text,
-                    "time": parse_timestamp(timestamp_raw)
-                };
+                if (!isNaN(timestamp)){
+                    return {
+                        "text": tag_text,
+                        "time": timestamp
+                    };
+                } else {
+                    return {
+                        "text": tag,
+                        "time": undefined
+                    }
+                }
             }
 
             function parseTags(input) {
                 const tags = [];
                 const split_input = input.replace(/\r/g, "").split(/\n/);
-                return split_input.map(parseSingleTagKorotagger).filter(val => typeof val.time == "number");
+                return split_input.map(parseSingleTagKorotagger);//.filter(val => typeof val.time == "number");
             }
 
             function renderPreferred(tags_json) {
-                console.log(tags_json);
+                const tags_rendered = tags_json.map(val => {
+                    if (isNaN(val.time)) {
+                        return val.text;
+                    }
+                    const timestamp = new Date(val.time * 1000).toISOString().slice(11, 19);
+                    return timestamp + " " + val.text;
+                })
+                return tags_rendered.join("\n");
             }
         </script>
     </body>
