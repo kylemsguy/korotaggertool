@@ -7,19 +7,144 @@
 </head>
 
 <body>
-    <textarea id="input" rows="70" cols="100" placeholder="Input goes here..."></textarea>
+    <textarea id="input" rows="30" cols="50" placeholder="Input goes here..."></textarea>
 
-    <textarea id="output" rows="70" cols="100" placeholder="Output appears here..."></textarea>
+    <textarea id="output" rows="30" cols="50" placeholder="Output appears here..."></textarea>
     <button id="convert">Convert!</button>
-    <script language="Javascript">
+
+    <div>
+        <div id="player"></div>
+        <form action="#" id="videoinputform">
+            <input id="videoinput" value="https://www.youtube.com/live/F8pEYNY_n0c" size="40" />
+            <button id="videoinputsubmit" type="submit">Load Video</button>
+        </form>
+        <form action="#" id="videotimeform">
+            <input id="timedisplay" value="0:00" />
+            <button id="videotimesubmit" type="submit">Jump to Time</button>
+        </form>
+    </div>
+
+    <script>
         const convert_button = document.getElementById("convert");
         const input_textarea = document.getElementById("input");
         const output_textarea = document.getElementById("output");
+        const videoid_input = document.getElementById("videoinput");
+        const videoidinput_form = document.getElementById("videoinputform");
+        const timedisplay = document.getElementById("timedisplay");
+        const videotime_form = document.getElementById("videotimeform");
+
+        let player;
+
         convert_button.onclick = ev => {
             const parsed = parseTags(input_textarea.value);
             const output = renderPreferred(parsed);
             output_textarea.value = output;
         };
+
+        videoidinput_form.onsubmit = ev => {
+            loadVideoFromUrl(videoid_input.value);
+            return false;
+        }
+
+        videotime_form.onsubmit = ev => {
+            let seconds = timestampToSeconds(timedisplay.value);
+            if (isNaN(seconds)) {
+                seconds = parse_timestamp(timedisplay.value);
+            }
+            if (isNaN(seconds)) {
+                // timedisplay.value = "Invalid timestamp.";
+                updateVideoTimeDisplay();
+                return false;
+            }
+            player.seekTo(seconds, true);
+            return false;
+        }
+
+        // 2. This code loads the IFrame Player API code asynchronously.
+        const tag = document.createElement('script');
+
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // 3. This function creates an <iframe> (and YouTube player)
+        //    after the API code downloads.
+        function onYouTubeIframeAPIReady() {
+            
+            player = new YT.Player('player', {
+                height: '390',
+                width: '640',
+                videoId: getIdFromUrl(videoid_input.value),
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // 4. The API will call this function when the video player is ready.
+        function onPlayerReady(event) {
+            updateVideoTimeDisplay();
+            event.target.playVideo();
+        }
+
+        // 5. The API calls this function when the player's state changes.
+        //    The function indicates that when playing a video (state=1),
+        //    the player should update the timestamp every second.
+        let secondsUpdateInterval = null;
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING && !secondsUpdateInterval) {
+                secondsUpdateInterval = setInterval(updateVideoTimeDisplay, 10);
+            } else {
+                if (secondsUpdateInterval) {
+                    clearInterval(secondsUpdateInterval);
+                    secondsUpdateInterval = null;
+                }
+            }
+        }
+
+        function loadVideoFromUrl(url){
+            loadVideo(getIdFromUrl(url));
+        }
+
+        function getIdFromUrl(url) {
+            const ytregex1 = /youtube.com\/watch\?v=([a-zA-Z0-9_-]+)/;
+            const ytregex2 = /youtube.com\/live\/([a-zA-Z0-9_-]+)/;
+            const ytregex3 = /youtu.be\/([a-zA-Z0-9_-]+)/;
+
+            const match1 = url.match(ytregex1);
+            if (match1 != null) {
+                return match1[1];
+            }
+            const match2 = url.match(ytregex2);
+            if (match2 != null) {
+                return match2[1];
+            }
+            const match3 = url.match(ytregex3);
+            if (match3 != null) {
+                return match3[1];
+            }
+            return null;
+        }
+
+        function loadVideo(id){
+            player.loadVideoById(id);
+        }
+
+        function stopVideo() {
+            player.stopVideo();
+        }
+
+        function getVideoTime() {
+            return Math.floor(player.getCurrentTime());
+        }
+
+        function updateVideoTimeDisplay() {
+            timedisplay.value = secondsToTimestamp(getVideoTime());
+        }
     </script>
 </body>
 
