@@ -66,7 +66,7 @@ function parseSingleTagKorotagger(tag) {
     } else {
         return {
             "text": tag,
-            "time": undefined
+            "time": null
         }
     }
 }
@@ -93,7 +93,7 @@ function timestampToSeconds(timestamp){
 
 function renderPreferred(tags_json) {
     const tags_rendered = tags_json.map(val => {
-        if (isNaN(val.time)) {
+        if (isNaN(val.time) || val.time === null) {
             return val.text;
         }
         const timestamp = secondsToTimestamp(val.time);
