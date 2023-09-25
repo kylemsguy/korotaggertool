@@ -58,7 +58,7 @@
             </form>
             <textarea id="output" rows="20" cols="80" placeholder="Output appears here..."></textarea>
             <input id="filenameinput" value="tags.txt">
-            <button id="downloadbutton" onclick="download()">Save to disk</button>
+            <button id="downloadbutton" onclick="download()">Download to disk</button>
             <span id="status">Status OK</span>
         </div>
     </div>
@@ -306,7 +306,7 @@
         }
 
         function autoSave() {
-            status_span.innerText = "Last saved on " + new Date().toISOString();
+            status_span.innerText = "Last autosaved on " + new Date().toISOString();
             saveTagsToStorage(tagsJson);
         }
 
