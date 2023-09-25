@@ -57,6 +57,8 @@
                 <button id="videotimesubmit" type="submit">Jump to Time</button>
             </form>
             <textarea id="output" rows="20" cols="80" placeholder="Output appears here..."></textarea>
+            <input id="filenameinput" value="tags.txt">
+            <button id="downloadbutton" onclick="download()">Save to disk</button>
         </div>
     </div>
 
@@ -70,6 +72,9 @@
                 e.preventDefault();
             } else if ((e.ctrlKey || e.metaKey) && e.key == 'z') {
                 undo();
+                e.preventDefault();
+            } else if ((e.ctrlKey || e.metaKey) && e.key == 's') {
+                download();
                 e.preventDefault();
             }/*else if ((e.ctrlKey || e.metaKey) && e.key == 'y') {
                 redo();
@@ -91,6 +96,7 @@
         const taglist = document.getElementById("taglist");
         const undobutton = document.getElementById("undobutton");
         const redobutton = document.getElementById("redobutton");
+        const filename_input = document.getElementById("filenameinput");
 
         let player;
         let tagsJson = [];
@@ -265,6 +271,21 @@
                 const output = renderPreferred(tagsJson);
                 output_textarea.value = output;
             }
+        }
+
+        function download() {
+            const output = output_textarea.value;
+            // console.log("Trying to dl");
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(output));
+            element.setAttribute('download', filename_input.value);
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
         }
     </script>
 </body>
