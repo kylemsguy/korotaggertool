@@ -7,6 +7,7 @@ A tool to help with editing tags output by korotagger
 - [x] Implement tag editor with video embed that lets you test your modified tags
 - [x] This also includes autofilling the current timestamp, as well as editing the timestamp/text
 - [ ] Implement a banned words sanity check.
+- [x] Ctrl/Cmd-Z and Ctrl/Cmd-Shift-Z for Undo/Redo
 
 ## TODO list
 - [x] re-sort list when times are changed
