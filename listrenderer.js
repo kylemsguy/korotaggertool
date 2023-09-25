@@ -44,6 +44,7 @@ function renderTags(tags, tagChangeCallback, videoTimeUpdateCallback) {
             time.value = secondsToTimestamp(tag.time);
         }
         time.className = "time";
+        time.size = 8;
         time.addEventListener("change", (ev) => {
             const seconds = smartTimestampToSeconds(time.value);
             if (isNaN(seconds)) {
@@ -61,7 +62,7 @@ function renderTags(tags, tagChangeCallback, videoTimeUpdateCallback) {
             tags[i].time = videoTime;
             tagChangeCallback(tags);
         }
-        syncbutton.innerText = "Sync";
+        syncbutton.innerText = "Adjust to Current Position";
 
         const jumptobutton = document.createElement("button");
         jumptobutton.onclick = ev => {
