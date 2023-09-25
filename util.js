@@ -79,6 +79,9 @@ function parseTags(input) {
 }
 
 function secondsToTimestamp(seconds) {
+    if (isNaN(seconds)){
+        return NaN;
+    }
     return new Date(seconds * 1000).toISOString().slice(11, 19)
 }
 

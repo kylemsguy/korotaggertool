@@ -12,6 +12,8 @@
     <textarea id="output" rows="30" cols="50" placeholder="Output appears here..."></textarea>
     <button id="convert">Convert!</button>
 
+    <div id="taglist"></div>
+
     <div>
         <div id="player"></div>
         <form action="#" id="videoinputform">
@@ -32,12 +34,16 @@
         const videoidinput_form = document.getElementById("videoinputform");
         const timedisplay = document.getElementById("timedisplay");
         const videotime_form = document.getElementById("videotimeform");
+        const taglist = document.getElementById("taglist");
 
         let player;
 
         convert_button.onclick = ev => {
             const parsed = parseTags(input_textarea.value);
             const output = renderPreferred(parsed);
+            const tags = renderTags(parsed);
+            taglist.innerHTML = "";
+            taglist.appendChild(tags);
             output_textarea.value = output;
         };
 
@@ -127,6 +133,7 @@
             timedisplay.value = secondsToTimestamp(getVideoTime());
         }
     </script>
+    <script src="listrenderer.js"></script>
 </body>
 
 </html>
