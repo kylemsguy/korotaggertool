@@ -11,6 +11,11 @@ function parse_timestamp(timestamp) {
         console.log("Malformed timestamp (empty)");
         return NaN;
     }
+
+    if (!isNaN(timestamp)) {
+        return parseInt(timestamp);
+    }
+
     let buffer = [];
     for (let i = 0; i < timestamp.length; i++) {
         if (!isNaN(timestamp[i])) {
@@ -38,6 +43,10 @@ function parse_timestamp(timestamp) {
             }
             buffer = [];
         }
+    }
+
+    if (buffer.length > 0) {
+        return NaN;
     }
     return total;
 }
@@ -69,13 +78,22 @@ function parseTags(input) {
     return split_input.map(parseSingleTagKorotagger);//.filter(val => typeof val.time == "number");
 }
 
+function secondsToTimestamp(seconds) {
+    return new Date(seconds * 1000).toISOString().slice(11, 19)
+}
+
+function timestampToSeconds(timestamp){
+    // Thanks to https://stackoverflow.com/a/64593340
+    const [hours, minutes, seconds] = timestamp.split(':');
+    return Number(hours) * 60 * 60 + Number(minutes) * 60 + Number(seconds);
+};
 
 function renderPreferred(tags_json) {
     const tags_rendered = tags_json.map(val => {
         if (isNaN(val.time)) {
             return val.text;
         }
-        const timestamp = new Date(val.time * 1000).toISOString().slice(11, 19);
+        const timestamp = secondsToTimestamp(val.time);
         return timestamp + " " + val.text;
     })
     return tags_rendered.join("\n");
