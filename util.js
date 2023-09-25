@@ -79,17 +79,29 @@ function parseTags(input) {
 }
 
 function secondsToTimestamp(seconds) {
-    if (isNaN(seconds)){
+    if (isNaN(seconds)) {
         return NaN;
     }
     return new Date(seconds * 1000).toISOString().slice(11, 19)
 }
 
-function timestampToSeconds(timestamp){
+function timestampToSeconds(timestamp) {
     // Thanks to https://stackoverflow.com/a/64593340
     const [hours, minutes, seconds] = timestamp.split(':');
     return Number(hours) * 60 * 60 + Number(minutes) * 60 + Number(seconds);
 };
+
+function smartTimestampToSeconds(timestamp) {
+    /**
+     * Attempts to parse the timestamp in both YT comment and URL forms.
+     * Returns NaN if parsing fails.
+     */
+    let seconds = timestampToSeconds(timestamp);
+    if (isNaN(seconds)) {
+        seconds = parse_timestamp(timestamp);
+    }
+    return seconds;
+}
 
 function renderPreferred(tags_json) {
     const tags_rendered = tags_json.map(val => {
