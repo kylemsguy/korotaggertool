@@ -110,28 +110,9 @@
             loadVideo(getIdFromUrl(url));
         }
 
-        function getIdFromUrl(url) {
-            const ytregex1 = /youtube.com\/watch\?v=([a-zA-Z0-9_-]+)/;
-            const ytregex2 = /youtube.com\/live\/([a-zA-Z0-9_-]+)/;
-            const ytregex3 = /youtu.be\/([a-zA-Z0-9_-]+)/;
-
-            const match1 = url.match(ytregex1);
-            if (match1 != null) {
-                return match1[1];
-            }
-            const match2 = url.match(ytregex2);
-            if (match2 != null) {
-                return match2[1];
-            }
-            const match3 = url.match(ytregex3);
-            if (match3 != null) {
-                return match3[1];
-            }
-            return null;
-        }
-
         function loadVideo(id){
             player.loadVideoById(id);
+            player.stopVideo();
         }
 
         function stopVideo() {
