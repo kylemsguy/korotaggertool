@@ -18,7 +18,7 @@ A tool to help with editing tags output by korotagger
 - [x] allow creating new tag at current time
 - [x] Allow importing YT comment format as well
 - [x] Implement a download button
-- [ ] Allow disabling autosave
+- [ ] Allow disabling autosave (and changing autosave delay)
 - [ ] Add a clear button
 
 Try it for yourself at https://kylezhou.me/korotaggertool/korotaggertool.html
