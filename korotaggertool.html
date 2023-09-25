@@ -59,6 +59,19 @@
 
     <script src="listrenderer.js"></script>
     <script>
+        document.addEventListener("keydown", (e) => {
+            // console.log((e.ctrlKey || e.metaKey), e.shiftKey, e.key);
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key == 'z') {
+                redo();
+                e.preventDefault();
+            } else if ((e.ctrlKey || e.metaKey) && e.key == 'z') {
+                undo();
+                e.preventDefault();
+            }/*else if ((e.ctrlKey || e.metaKey) && e.key == 'y') {
+                redo();
+                e.preventDefault();
+            }*/
+        });
         const convert_button = document.getElementById("convert");
         const addbutton = document.getElementById("addbutton");
         const input_textarea = document.getElementById("input");
@@ -74,12 +87,10 @@
         const redobutton = document.getElementById("redobutton");
 
         let player;
-        let tagsJson = [{
-            "text": "",
-            "time": null
-        }];
+        let tagsJson = [];
 
-        renderTagList();
+        // Initalize tag list to have 1 item to make it look good
+        addNewTag();
 
         convert_button.onclick = ev => {
             tagsJson = parseTags(input_textarea.value);
@@ -96,14 +107,7 @@
             output_textarea.value = output;
         };
 
-        addbutton.onclick = ev => {
-            tagsJson.unshift({
-                "text": "",
-                "time": null
-            })
-            addToHistory(tagsJson);
-            renderTagList();
-        }
+        addbutton.onclick = addNewTag;
 
         videoidinput_form.onsubmit = ev => {
             loadVideoFromUrl(videoid_input.value);
@@ -137,25 +141,9 @@
             player.seekTo(newtime, true);
         }
 
-        undobutton.onclick = ev => {
-            const newstate = goBackInHistory();
-            if (newstate !== null) {
-                tagsJson = newstate;
-                renderTagList();
-                const output = renderPreferred(tagsJson);
-                output_textarea.value = output;
-            }
-        }
+        undobutton.onclick = undo;
 
-        redobutton.onclick = ev => {
-            const newstate = goForwardInHistory();
-            if (newstate !== null) {
-                tagsJson = newstate;
-                renderTagList();
-                const output = renderPreferred(tagsJson);
-                output_textarea.value = output;
-            }
-        }
+        redobutton.onclick = redo;
 
         // 2. This code loads the IFrame Player API code asynchronously.
         const tag = document.createElement('script');
@@ -238,6 +226,35 @@
             }, (time) => player.seekTo(time));
             taglist.innerHTML = "";
             taglist.appendChild(tags);
+        }
+
+        function addNewTag() {
+            tagsJson.unshift({
+                "text": "",
+                "time": null
+            })
+            addToHistory(tagsJson);
+            renderTagList();
+        }
+
+        function undo() {
+            const newstate = goBackInHistory();
+            if (newstate !== null) {
+                tagsJson = newstate;
+                renderTagList();
+                const output = renderPreferred(tagsJson);
+                output_textarea.value = output;
+            }
+        }
+
+        function redo() {
+            const newstate = goForwardInHistory();
+            if (newstate !== null) {
+                tagsJson = newstate;
+                renderTagList();
+                const output = renderPreferred(tagsJson);
+                output_textarea.value = output;
+            }
         }
     </script>
 </body>
