@@ -72,10 +72,34 @@ function parseSingleTagKorotagger(tag) {
 }
 
 
-function parseTags(input) {
+function parseSingleTagYTCommentTag(tag) {
+    const elements = tag.split(" ");
+    console.log(elements);
+    const timestamp_raw = elements[0];
+    const tag_text = elements.slice(1, elements.length).join(" ");
+    const timestamp = timestampToSeconds(timestamp_raw);
+
+    if (!isNaN(timestamp)) {
+        return {
+            "text": tag_text,
+            "time": timestamp
+        };
+    } else {
+        return {
+            "text": tag,
+            "time": null
+        }
+    }
+}
+
+
+function parseTags(input, parser) {
     const tags = [];
     const split_input = input.replace(/\r/g, "").split(/\n/);
-    return split_input.map(parseSingleTagKorotagger);
+    if (parser === undefined) {
+        parser = parseSingleTagKorotagger
+    }
+    return split_input.map(parser);
 }
 
 function secondsToTimestamp(seconds) {

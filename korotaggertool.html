@@ -28,7 +28,11 @@
 <body>
     <div class="row">
         <div class="column">
-            <button id="convert">Load from !tags</button><br>
+            <button id="convert">Load from !tags</button>
+            <input type="radio" id="ktradio" name="inputtype" value="Korotagger" checked>
+            <label for="ktradio">Korotagger</label>
+            <input type="radio" id="ytradio" name="inputtype" value="YTComment">
+            <label for="ytradio">YT Comment</label>
             <textarea id="input" rows="5" cols="50" placeholder="Tags to load go here"></textarea>
 
             <div id="undoredocontainer">
@@ -73,6 +77,8 @@
             }*/
         });
         const convert_button = document.getElementById("convert");
+        const kt_radio = document.getElementById("ktradio");
+        const yt_radio = document.getElementById("ytradio");
         const addbutton = document.getElementById("addbutton");
         const input_textarea = document.getElementById("input");
         const output_textarea = document.getElementById("output");
@@ -93,7 +99,11 @@
         addNewTag();
 
         convert_button.onclick = ev => {
-            tagsJson = parseTags(input_textarea.value);
+            if (yt_radio.checked) {
+                tagsJson = parseTags(input_textarea.value, parseSingleTagYTCommentTag);
+            } else {
+                tagsJson = parseTags(input_textarea.value);
+            }
             if (tagsJson.length > 0 && tagsJson[0].time === null || isNaN(tagsJson[0].time)) {
                 // Attempt to load a video
                 const videoId = getIdFromUrl(tagsJson[0].text);

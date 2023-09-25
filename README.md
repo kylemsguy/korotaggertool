@@ -16,6 +16,6 @@ A tool to help with editing tags output by korotagger
 - [x] add redo button
 - [ ] figure out how best to do auto-save (add a timed job that autosaves to local storage)
 - [x] allow creating new tag at current time
-- [ ] Allow importing YT comment format as well
+- [x] Allow importing YT comment format as well
 
 Try it for yourself at https://kylezhou.me/korotaggertool/korotaggertool.html
