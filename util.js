@@ -75,7 +75,7 @@ function parseSingleTagKorotagger(tag) {
 function parseTags(input) {
     const tags = [];
     const split_input = input.replace(/\r/g, "").split(/\n/);
-    return split_input.map(parseSingleTagKorotagger);//.filter(val => typeof val.time == "number");
+    return split_input.map(parseSingleTagKorotagger);
 }
 
 function secondsToTimestamp(seconds) {

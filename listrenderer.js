@@ -46,9 +46,9 @@ function renderTags(tags, tagChangeCallback, videoTimeUpdateCallback) {
         time.className = "time";
         time.size = 8;
         time.addEventListener("change", (ev) => {
-            const seconds = smartTimestampToSeconds(time.value);
+            let seconds = smartTimestampToSeconds(time.value);
             if (isNaN(seconds)) {
-                return;
+                seconds = null;
             }
             tags[i].time = seconds;
             tagChangeCallback(tags);

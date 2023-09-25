@@ -83,6 +83,13 @@
 
         convert_button.onclick = ev => {
             tagsJson = parseTags(input_textarea.value);
+            if (tagsJson.length > 0 && tagsJson[0].time === null || isNaN(tagsJson[0].time)) {
+                // Attempt to load a video
+                const videoId = getIdFromUrl(tagsJson[0].text);
+                if (videoId !== null) {
+                    loadVideo(videoId);
+                }
+            }
             newHistory(tagsJson);
             renderTagList();
             const output = renderPreferred(tagsJson);
