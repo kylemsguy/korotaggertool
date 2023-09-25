@@ -157,3 +157,16 @@ function getIdFromUrl(url) {
     }
     return null;
 }
+
+function loadTagsFromStorage() {
+    try {
+        return JSON.parse(window.localStorage.getItem("currentTags"));
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+}
+
+function saveTagsToStorage(tags) {
+    window.localStorage.setItem("currentTags", JSON.stringify(tags));
+}

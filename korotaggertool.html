@@ -59,6 +59,7 @@
             <textarea id="output" rows="20" cols="80" placeholder="Output appears here..."></textarea>
             <input id="filenameinput" value="tags.txt">
             <button id="downloadbutton" onclick="download()">Save to disk</button>
+            <span id="status">Status OK</span>
         </div>
     </div>
 
@@ -97,12 +98,24 @@
         const undobutton = document.getElementById("undobutton");
         const redobutton = document.getElementById("redobutton");
         const filename_input = document.getElementById("filenameinput");
+        const status_span = document.getElementById("status");
 
         let player;
-        let tagsJson = [];
+        let tagsJson = loadTagsFromStorage();
 
-        // Initalize tag list to have 1 item to make it look good
-        addNewTag();
+        if (tagsJson === null) {
+            // Initalize tag list to have 1 item to make it look good
+            tagsJson = [];
+            addNewTag();
+        } else {
+            console.log(tagsJson);
+            newHistory(tagsJson);
+            renderTagList();
+            const videoid = getIdFromUrl(tagsJson[0].text);
+            if (videoid !== null) {
+                videoid_input.value = "https://youtube.com/watch?v=" + videoid;
+            }
+        }
 
         convert_button.onclick = ev => {
             if (yt_radio.checked) {
@@ -110,13 +123,7 @@
             } else {
                 tagsJson = parseTags(input_textarea.value);
             }
-            if (tagsJson.length > 0 && tagsJson[0].time === null || isNaN(tagsJson[0].time)) {
-                // Attempt to load a video
-                const videoId = getIdFromUrl(tagsJson[0].text);
-                if (videoId !== null) {
-                    loadVideo(videoId);
-                }
-            }
+            loadVideoFromTags(tagsJson);
             newHistory(tagsJson);
             renderTagList();
             const output = renderPreferred(tagsJson);
@@ -207,6 +214,16 @@
             }
         }
 
+        function loadVideoFromTags(tags) {
+            if (tags.length > 0 && tags[0].time === null || isNaN(tags[0].time)) {
+                // Attempt to load a video
+                const videoId = getIdFromUrl(tags[0].text);
+                if (videoId !== null) {
+                    loadVideo(videoId);
+                }
+            }
+        }
+
         function loadVideoFromUrl(url) {
             loadVideo(getIdFromUrl(url));
         }
@@ -287,6 +304,13 @@
 
             document.body.removeChild(element);
         }
+
+        function autoSave() {
+            status_span.innerText = "Last saved on " + new Date().toISOString();
+            saveTagsToStorage(tagsJson);
+        }
+
+        const autosaveInterval = setInterval(autoSave, 5000);
     </script>
 </body>
 

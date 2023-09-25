@@ -14,9 +14,11 @@ A tool to help with editing tags output by korotagger
 - [x] add button to sync tag with current time
 - [x] add undo button (implement naively--store a stack of past JSON's)
 - [x] add redo button
-- [ ] figure out how best to do auto-save (add a timed job that autosaves to local storage)
+- [x] figure out how best to do auto-save (add a timed job that autosaves to local storage)
 - [x] allow creating new tag at current time
 - [x] Allow importing YT comment format as well
 - [x] Implement a download button
+- [ ] Allow disabling autosave
+- [ ] Add a clear button
 
 Try it for yourself at https://kylezhou.me/korotaggertool/korotaggertool.html
