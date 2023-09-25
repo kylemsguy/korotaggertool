@@ -22,4 +22,4 @@ A tool to help with editing tags output by korotagger
 - [ ] Allow disabling autosave (and changing autosave delay)
 - [ ] Add a clear button
 
-Try it for yourself at https://kylezhou.me/korotaggertool/korotaggertool.html
+Try it for yourself at <https://kylezhou.me/korotaggertool/korotaggertool.html>
