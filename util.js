@@ -171,10 +171,18 @@ function saveTagsToStorage(tags) {
     window.localStorage.setItem("currentTags", JSON.stringify(tags));
 }
 
-function loadActiveVideofromStorage(url) {
+function loadActiveVideofromStorage() {
     return window.localStorage.getItem("currentVideo");
 }
 
 function saveActiveVideoToStorage(url) {
     window.localStorage.setItem("currentVideo", url);
+}
+
+function loadTagFilenameFromLocalStorage() {
+    return window.localStorage.getItem("tagFileName");
+}
+
+function saveTagFilenameToLocalStorage(filename) {
+    window.localStorage.setItem("tagFileName", filename);
 }

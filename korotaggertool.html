@@ -59,7 +59,7 @@
             <textarea id="output" rows="20" cols="80" placeholder="Output appears here..."></textarea>
             <input id="filenameinput" value="tags.txt">
             <button id="downloadbutton" onclick="download()">Download to disk</button>
-            <span id="status">Status OK</span>
+            <span id="status">JavaScript not enabled or check Dev Console.</span>
         </div>
     </div>
 
@@ -119,6 +119,10 @@
             // const videoid = getIdFromUrl(tagsJson[0].text);
             if (videoUrl !== null) {
                 videoid_input.value = videoUrl;
+            }
+            const filename = loadTagFilenameFromLocalStorage();
+            if (filename !== null) {
+                filename_input.value = filename;
             }
         }
 
@@ -201,7 +205,7 @@
         // 4. The API will call this function when the video player is ready.
         function onPlayerReady(event) {
             updateVideoTimeDisplay();
-            event.target.stopVideo();
+            event.target.pauseVideo();
         }
 
         // 5. The API calls this function when the player's state changes.
@@ -236,11 +240,16 @@
 
         function loadVideo(id) {
             player.loadVideoById(id);
-            player.stopVideo();
+
+            setTimeout(() => {
+                const videodata = player.getVideoData();
+                console.log(videodata);
+                filename_input.value = videodata.title + " - " + videodata.author + ".txt";
+            }, 1000);
         }
 
         function stopVideo() {
-            player.stopVideo();
+            player.pauseVideo();
         }
 
         function getVideoTime() {
@@ -325,12 +334,14 @@
         }
 
         function autoSave() {
-            status_span.innerText = "Last autosaved on " + new Date().toISOString();
+            status_span.innerText = "Last autosaved on " + new Date().toLocaleString();
             saveTagsToStorage(tagsJson);
             saveActiveVideoToStorage(videoid_input.value);
+            saveTagFilenameToLocalStorage(filename_input.value);
         }
 
         const autosaveInterval = setInterval(autoSave, 5000);
+        status_span.innerText = "Autosave on in 5s intervals."
     </script>
 </body>
 
