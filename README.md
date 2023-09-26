@@ -41,3 +41,4 @@ Try it for yourself at <https://kylezhou.me/korotaggertool/korotaggertool.html>
 - [x] Implement a download button
 - [ ] Allow disabling autosave (and changing autosave delay)
 - [ ] Add a clear button
+- [ ] Have *some* semblance of Responsive design so it works on more screens than just my MacBook Pro in fullscreen.
