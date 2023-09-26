@@ -72,6 +72,8 @@ function sanityCheckString(str) {
     return checkStringForBannedWords(str).concat(checkStringForBannedRegExps(str));
 }
 
+
+// TODO: perhaps return a separate array instead of mutating the tags list directly
 function sanityCheckTags(tags) {
     /**
      * Adds a new field called "bannedwords" to each tag, with any banned words
