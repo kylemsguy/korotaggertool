@@ -10,7 +10,7 @@ If you paste the output of `!tags` from korotagger, the tool will also automatic
 
 This tool may also be used for tagging streams live, but korotagger allows for collaborative tagging.
 
-Currently only supports YouTube videos and stream VODs. YouTube streams seem to work too, but I haven't done much testing.
+Currently only supports YouTube videos and stream VODs. YouTube livestreams seem to work too (and maybe Premieres), but I haven't done much testing.
 
 ## Try it!
 Try it for yourself at <https://kylezhou.me/korotaggertool/korotaggertool.html>
