@@ -24,7 +24,7 @@ Try it for yourself at <https://kylezhou.me/korotaggertool/korotaggertool.html>
 - [ ] Convert YouTube comment format to korotagger output (allowing user to pass in a format string)
 - [x] Implement tag editor with video embed that lets you test your modified tags
 - [x] This also includes autofilling the current timestamp, as well as editing the timestamp/text
-- [ ] Implement a banned words sanity check.
+- [x] Implement a banned words sanity check. # (Basic one implemented)
 - [x] Ctrl/Cmd-Z and Ctrl/Cmd-Shift-Z for Undo/Redo
 - [ ] Support Twitch VODs
 - [ ] Support Twitch Streams
