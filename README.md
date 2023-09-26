@@ -28,6 +28,7 @@ Try it for yourself at <https://kylezhou.me/korotaggertool/korotaggertool.html>
 - [x] Ctrl/Cmd-Z and Ctrl/Cmd-Shift-Z for Undo/Redo
 - [ ] Support Twitch VODs
 - [ ] Support Twitch Streams
+- [ ] Support offline video files (e.g. unarchived streams)
 
 ## TODO list
 - [x] re-sort list when times are changed
