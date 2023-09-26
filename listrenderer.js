@@ -90,8 +90,11 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
             infobutton.style.background = "red";
             infobutton.style.color = "white";
             infobutton.onclick = ev => {
-                alert("Banned words are: [" + tag.bannedwords.toString() + "]");
-                console.log(tag.bannedwords);
+                let bannedwords = "";
+                for (let i = 0; i < tag.bannedwords.length; i++) {
+                    bannedwords += "- " + tag.bannedwords[i] + "\n";
+                }
+                alert("Banned words are:\n" + bannedwords);
             }
         } else {
             infobutton.disabled = true;
