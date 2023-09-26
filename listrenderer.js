@@ -104,13 +104,7 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
         row.appendChild(deletebutton);
         row.appendChild(infobutton);
 
-        // todo: re-sort list when times are changed
-        // todo: add delete button
-        // todo: add button to sync tag with current time
-        // todo: add undo button (implement naively--store a stack of past JSON's)
-        // todo: add redo button
-        // todo: figure out how best to do auto-save (maybe when timestamps are consistent do an auto-save?)
-        // todo: allow creating new tag at current time
+        // todo: allow creating new tag at current time (currently only creates a new, empty tag)
 
         ol.appendChild(row);
     }
