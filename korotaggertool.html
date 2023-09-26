@@ -256,22 +256,28 @@
             tagsJson = newTagJson;
         }
 
-        function renderTagList() {
-            const tags = renderTags(tagsJson, (t) => {
-                tags.sort((a, b) => {
-                    const diff = a.time - b.time;
-                    if (isNaN(diff) || a.time === null || b.time === null) {
-                        return 0;
-                    }
-                    return diff;
-                });
-                updateTagsWithHistory(t);
-                renderTagList();
-                const output = renderPreferred(tagsJson);
-                output_textarea.value = output;
-            }, (time) => player.seekTo(time));
+        function renderTagList(scrollPosition) {
+            const tags = renderTags(
+                tagsJson,
+                scrollPosition,
+                (t, sp) => {
+                    t.sort((a, b) => {
+                        const diff = a.time - b.time;
+                        if (isNaN(diff) || a.time === null || b.time === null) {
+                            return 0;
+                        }
+                        return diff;
+                    });
+                    updateTagsWithHistory(t);
+                    renderTagList(sp);
+                    const output = renderPreferred(tagsJson);
+                    output_textarea.value = output;
+                },
+                (time) => player.seekTo(time)
+            );
             taglist.innerHTML = "";
             taglist.appendChild(tags);
+            tags.scrollTop = scrollPosition;
         }
 
         function addNewTag() {

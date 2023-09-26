@@ -1,7 +1,8 @@
-function renderTags(tags, tagChangeCallback, videoTimeUpdateCallback) {
+function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCallback) {
     /**
      * tags: Tags (see below for format)
-     * tagChangeCallback: A callback that is called when the tags are updated and need to be rerendered. Takes a single arg with new tags.
+     * tagChangeCallback: A callback that is called when the tags are updated and need to be rerendered. 
+     *  Takes two args: new tags and current scroll position.
      * 
      * ~~Note: some of the callbacks in the rendered list WILL mutate the tags array~~ (not anymore with naive deepcopy)
      */
@@ -11,6 +12,8 @@ function renderTags(tags, tagChangeCallback, videoTimeUpdateCallback) {
             "time": <time in seconds>
         }
     */
+
+    // console.log("Scrollposition", scrollPosition);
 
     // TODO: more efficient way of making a deep copy maybe
     tags = JSON.parse(JSON.stringify(tags));
@@ -36,7 +39,7 @@ function renderTags(tags, tagChangeCallback, videoTimeUpdateCallback) {
         title.size = 50;
         title.addEventListener("change", (ev) => {
             tags[i].text = title.value;
-            tagChangeCallback(tags);
+            tagChangeCallback(tags, ol.scrollTop);
         });
 
         const time = document.createElement("input");
@@ -51,7 +54,7 @@ function renderTags(tags, tagChangeCallback, videoTimeUpdateCallback) {
                 seconds = null;
             }
             tags[i].time = seconds;
-            tagChangeCallback(tags);
+            tagChangeCallback(tags, ol.scrollTop);
         });
 
         const syncbutton = document.createElement("button");
@@ -60,7 +63,7 @@ function renderTags(tags, tagChangeCallback, videoTimeUpdateCallback) {
             const videoTime = getVideoTime();
             time.value = secondsToTimestamp(videoTime);
             tags[i].time = videoTime;
-            tagChangeCallback(tags);
+            tagChangeCallback(tags, ol.scrollTop);
         }
         syncbutton.innerText = "Adjust to Current Position";
 
@@ -76,7 +79,7 @@ function renderTags(tags, tagChangeCallback, videoTimeUpdateCallback) {
         deletebutton.onclick = ev => {
             tags[i] = null;
             const newTags = tags.filter(it => it !== null);
-            tagChangeCallback(newTags);
+            tagChangeCallback(newTags, ol.scrollTop);
         }
         deletebutton.innerText = "X";
 
