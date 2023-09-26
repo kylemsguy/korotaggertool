@@ -12,6 +12,10 @@ This tool may also be used for tagging streams live, but korotagger allows for c
 
 Currently only supports YouTube videos and stream VODs. YouTube livestreams seem to work too (and maybe Premieres), but I haven't done much testing.
 
+## Libraries used/Dependencies
+- [YouTube Player iframe API](https://developers.google.com/youtube/iframe_api_reference)
+- ...that's it--it's pure vanilla JS. 
+
 ## Try it!
 Try it for yourself at <https://kylezhou.me/korotaggertool/korotaggertool.html>
 
