@@ -80,3 +80,10 @@ function sanityCheckTags(tags) {
         tags[i].bannedwords = sanityCheckString(tags[i].text);
     }
 }
+
+function clearSanityCheckErrors(tags) {
+    /**
+     * Clears the sanity check errors
+     */
+    tags.map(it => delete it.bannedwords);
+}

@@ -289,6 +289,11 @@ function handleSanityCheckButton() {
     renderTagList();
 }
 
+function handleClearSanityCheckErrorButton() {
+    clearSanityCheckErrors(tagsJson);
+    renderTagList();
+}
+
 function updateStatus(text) {
     status_span.innerText = text;
 }
