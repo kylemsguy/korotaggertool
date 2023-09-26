@@ -93,6 +93,8 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
                 alert("Banned words are: [" + tag.bannedwords.toString() + "]");
                 console.log(tag.bannedwords);
             }
+        } else {
+            infobutton.disabled = true;
         }
 
         row.appendChild(title);
