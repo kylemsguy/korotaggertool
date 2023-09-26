@@ -103,7 +103,7 @@
         let player;
         let tagsJson = loadTagsFromStorage();
 
-        if (tagsJson === null || tagsJson.length === 0) {
+        if (tagsJson === undefined || tagsJson === null || tagsJson.length === 0) {
             // Initalize tag list to have 1 item to make it look good
             tagsJson = [];
             addNewTag();
@@ -111,9 +111,14 @@
             console.log(tagsJson);
             newHistory(tagsJson);
             renderTagList();
-            const videoid = getIdFromUrl(tagsJson[0].text);
-            if (videoid !== null) {
-                videoid_input.value = "https://youtube.com/watch?v=" + videoid;
+
+            const output = renderPreferred(tagsJson);
+            output_textarea.value = output;
+
+            const videoUrl = loadActiveVideofromStorage();
+            // const videoid = getIdFromUrl(tagsJson[0].text);
+            if (videoUrl !== null) {
+                videoid_input.value = videoUrl;
             }
         }
 
@@ -219,6 +224,7 @@
                 // Attempt to load a video
                 const videoId = getIdFromUrl(tags[0].text);
                 if (videoId !== null) {
+                    videoid_input.value = "https://www.youtube.com/watch?v=" + videoId;
                     loadVideo(videoId);
                 }
             }
@@ -252,6 +258,13 @@
 
         function renderTagList() {
             const tags = renderTags(tagsJson, (t) => {
+                tags.sort((a, b) => {
+                    const diff = a.time - b.time;
+                    if (isNaN(diff) || a.time === null || b.time === null) {
+                        return 0;
+                    }
+                    return diff;
+                });
                 updateTagsWithHistory(t);
                 renderTagList();
                 const output = renderPreferred(tagsJson);
@@ -308,6 +321,7 @@
         function autoSave() {
             status_span.innerText = "Last autosaved on " + new Date().toISOString();
             saveTagsToStorage(tagsJson);
+            saveActiveVideoToStorage(videoid_input.value);
         }
 
         const autosaveInterval = setInterval(autoSave, 5000);

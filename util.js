@@ -170,3 +170,11 @@ function loadTagsFromStorage() {
 function saveTagsToStorage(tags) {
     window.localStorage.setItem("currentTags", JSON.stringify(tags));
 }
+
+function loadActiveVideofromStorage(url) {
+    return window.localStorage.getItem("currentVideo");
+}
+
+function saveActiveVideoToStorage(url) {
+    window.localStorage.setItem("currentVideo", url);
+}
