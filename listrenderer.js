@@ -9,7 +9,8 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
     /* Tags are of format
         {
             "text": "tag text",
-            "time": <time in seconds>
+            "time": <time in seconds>,
+            "bannedwords": [<banned words>] or undefined
         }
     */
 
@@ -83,11 +84,23 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
         }
         deletebutton.innerText = "X";
 
+        const infobutton = document.createElement("button");
+        infobutton.innerText = "i";
+        if (tag.bannedwords !== undefined && tag.bannedwords !== null && tag.bannedwords.length > 0) {
+            infobutton.style.background = "red";
+            infobutton.style.color = "white";
+            infobutton.onclick = ev => {
+                alert("Banned words are: [" + tag.bannedwords.toString() + "]");
+                console.log(tag.bannedwords);
+            }
+        }
+
         row.appendChild(title);
         row.appendChild(time);
         row.appendChild(syncbutton);
         row.appendChild(jumptobutton);
         row.appendChild(deletebutton);
+        row.appendChild(infobutton);
 
         // todo: re-sort list when times are changed
         // todo: add delete button

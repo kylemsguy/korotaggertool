@@ -277,5 +277,10 @@ function autoSave() {
     saveTagFilenameToLocalStorage(filename_input.value);
 }
 
+function handleSanityCheckButton() {
+    sanityCheckTags(tagsJson);
+    renderTagList();
+}
+
 const autosaveInterval = setInterval(autoSave, 5000);
 status_span.innerText = "Autosave on in 5s intervals."
