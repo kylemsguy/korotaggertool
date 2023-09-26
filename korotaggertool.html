@@ -293,7 +293,7 @@
             const newstate = goBackInHistory();
             if (newstate !== null) {
                 tagsJson = newstate;
-                renderTagList();
+                renderTagList(taglist.children[0].scrollTop);
                 const output = renderPreferred(tagsJson);
                 output_textarea.value = output;
             }
@@ -303,7 +303,7 @@
             const newstate = goForwardInHistory();
             if (newstate !== null) {
                 tagsJson = newstate;
-                renderTagList();
+                renderTagList(taglist.children[0].scrollTop);
                 const output = renderPreferred(tagsJson);
                 output_textarea.value = output;
             }
