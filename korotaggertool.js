@@ -9,6 +9,9 @@ document.addEventListener("keydown", (e) => {
     } else if ((e.ctrlKey || e.metaKey) && e.key == 's') {
         download();
         e.preventDefault();
+    } else if ((e.ctrlKey || e.metaKey) && e.key == 'n') {
+        addNewTag();
+        e.preventDefault();
     }/*else if ((e.ctrlKey || e.metaKey) && e.key == 'y') {
         redo();
         e.preventDefault();

@@ -30,37 +30,38 @@
     <div class="row">
         <div class="column">
             <button id="convert">Load from !tags</button>
+            <label>Tag Format:</label>
             <input type="radio" id="ktradio" name="inputtype" value="Korotagger" checked>
             <label for="ktradio">Korotagger</label>
             <input type="radio" id="ytradio" name="inputtype" value="YTComment">
             <label for="ytradio">YT Comment</label>
-            <textarea id="input" rows="3" cols="50" placeholder="Tags to load go here"></textarea>
+            <textarea id="input" rows="3" cols="50" placeholder="Paste existing tags here"></textarea>
 
             <div id="undoredocontainer">
-                <button id="undobutton">Undo</button>
-                <button id="redobutton">Redo</button>
+                <button id="undobutton">Undo (Ctrl-Z)</button>
+                <button id="redobutton">Redo (Ctrl-Shift-Z)</button>
             </div>
-            <button id="addbutton">Add New</button>
+            <button id="addbutton">Add New (Ctrl-N)</button>
+            <span id="status">JavaScript not enabled or check Dev Console.</span>
             <div id="taglist">
                 <h1>JavaScript is required.</h1>
             </div>
         </div>
         <div class="column">
             <div id="player"></div>
-            <form action="#" id="videoinputform">
+            <form id="videoinputform">
                 <input id="videoinput" value="https://www.youtube.com/watch?v=jNQXAC9IVRw" size="40" />
                 <button id="videoinputsubmit" type="submit">Load Video</button>
             </form>
-            <form action="#" id="videotimeform">
+            <form id="videotimeform">
                 <button id="backonesecond">-1s</button>
                 <input id="timedisplay" value="0:00" />
                 <button id="forwardonesecond">+1s</button>
                 <button id="videotimesubmit" type="submit">Jump to Time</button>
             </form>
             <textarea id="output" rows="20" cols="80" placeholder="Output appears here..."></textarea>
-            <input id="filenameinput" size="50" value="tags.txt">
+            <input id="filenameinput" size="79" value="tags.txt">
             <button id="downloadbutton" onclick="download()">Download to disk</button>
-            <span id="status">JavaScript not enabled or check Dev Console.</span>
         </div>
     </div>
     <script src="korotaggertool.js"></script>
