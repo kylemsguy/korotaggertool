@@ -79,6 +79,7 @@ addbutton.onclick = addNewTag;
 videoidinput_form.onsubmit = ev => {
     loadVideoFromUrl(videoid_input.value);
     ev.preventDefault();
+    return false;
 }
 
 videotime_form.onsubmit = ev => {
@@ -91,6 +92,7 @@ videotime_form.onsubmit = ev => {
     }
     player.seekTo(seconds, true);
     ev.preventDefault();
+    return false;
 }
 
 backonesecond.onclick = ev => {
