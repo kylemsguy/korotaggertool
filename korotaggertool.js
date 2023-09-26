@@ -6,11 +6,14 @@ document.addEventListener("keydown", (e) => {
     } else if ((e.ctrlKey || e.metaKey) && e.key == 'z') {
         undo();
         e.preventDefault();
-    } else if ((e.ctrlKey || e.metaKey) && e.key == 's') {
+    } else if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key == 's') {
         download();
         e.preventDefault();
     } else if ((e.ctrlKey || e.metaKey) && e.key == 'n') {
         addNewTag();
+        e.preventDefault();
+    } else if ((e.ctrlKey || e.metaKey) && e.key == 's') {
+        handleSaveButton();
         e.preventDefault();
     }/*else if ((e.ctrlKey || e.metaKey) && e.key == 'y') {
         redo();
@@ -43,7 +46,7 @@ if (tagsJson === undefined || tagsJson === null || tagsJson.length === 0) {
     tagsJson = [];
     addNewTag();
 } else {
-    console.log(tagsJson);
+    // console.log(tagsJson);
     newHistory(tagsJson);
     renderTagList();
 
@@ -271,7 +274,11 @@ function download() {
 }
 
 function autoSave() {
-    status_span.innerText = "Last autosaved on " + new Date().toLocaleString();
+    updateStatus("Last autosaved on " + new Date().toLocaleString());
+    save();
+}
+
+function save() {
     saveTagsToStorage(tagsJson);
     saveActiveVideoToStorage(videoid_input.value);
     saveTagFilenameToLocalStorage(filename_input.value);
@@ -280,6 +287,15 @@ function autoSave() {
 function handleSanityCheckButton() {
     sanityCheckTags(tagsJson);
     renderTagList();
+}
+
+function updateStatus(text) {
+    status_span.innerText = text;
+}
+
+function handleSaveButton() {
+    updateStatus("Manually saved at " + new Date().toLocaleString())
+    save();
 }
 
 const autosaveInterval = setInterval(autoSave, 5000);
