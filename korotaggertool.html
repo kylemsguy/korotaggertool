@@ -103,7 +103,7 @@
         let player;
         let tagsJson = loadTagsFromStorage();
 
-        if (tagsJson === null) {
+        if (tagsJson === null || tagsJson.length === 0) {
             // Initalize tag list to have 1 item to make it look good
             tagsJson = [];
             addNewTag();
