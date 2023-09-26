@@ -110,9 +110,12 @@ function secondsToTimestamp(seconds) {
 }
 
 function timestampToSeconds(timestamp) {
-    // Thanks to https://stackoverflow.com/a/64593340
-    const [hours, minutes, seconds] = timestamp.split(':');
-    return Number(hours) * 60 * 60 + Number(minutes) * 60 + Number(seconds);
+    const split_timestamp = timestamp.split(':');
+    let seconds = 0;
+    for (let i = 0; i < split_timestamp.length; i++) {
+        seconds = seconds * 60 + parseInt(split_timestamp[i]);
+    }
+    return seconds;
 };
 
 function smartTimestampToSeconds(timestamp) {
