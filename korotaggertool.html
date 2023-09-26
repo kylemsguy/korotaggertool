@@ -3,6 +3,7 @@
 
 <head>
     <title>Korotagger tool</title>
+    <script src="bannedwords.js"></script>
     <script src="historymanager.js"></script>
     <script src="util.js"></script>
     <script src="listrenderer.js"></script>
@@ -35,7 +36,8 @@
             <label for="ktradio">Korotagger</label>
             <input type="radio" id="ytradio" name="inputtype" value="YTComment">
             <label for="ytradio">YT Comment</label>
-            <textarea id="input" rows="3" cols="50" placeholder="Paste existing tags here"></textarea>
+            <button id="sanitycheckbutton" onclick="handleSanityCheckButton()">Check tags for banned words</button>
+            <textarea id="input" rows="3" cols="40" placeholder="Paste existing tags here"></textarea>
 
             <div id="undoredocontainer">
                 <button id="undobutton">Undo (Ctrl-Z)</button>
