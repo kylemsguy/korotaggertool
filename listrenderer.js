@@ -75,7 +75,8 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
                 videoTimeUpdateCallback(tag.time);
             }
         }
-        jumptobutton.innerText = "Seek to"
+        jumptobutton.innerText = (i + 1) + ".";
+        jumptobutton.className = "jumptobutton";
 
         const deletebutton = document.createElement("button");
         deletebutton.onclick = ev => {
@@ -101,10 +102,10 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
             infobutton.disabled = true;
         }
 
+        row.appendChild(jumptobutton);
         row.appendChild(title);
         row.appendChild(time);
         row.appendChild(syncbutton);
-        row.appendChild(jumptobutton);
         row.appendChild(deletebutton);
         row.appendChild(infobutton);
 

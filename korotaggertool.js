@@ -32,7 +32,7 @@ const timedisplay = document.getElementById("timedisplay");
 const videotime_form = document.getElementById("videotimeform");
 const backonesecond = document.getElementById("backonesecond");
 const forwardonesecond = document.getElementById("forwardonesecond");
-const taglist = document.getElementById("taglist");
+const taglistcontainer = document.getElementById("taglistcontainer");
 const undobutton = document.getElementById("undobutton");
 const redobutton = document.getElementById("redobutton");
 const filename_input = document.getElementById("filenameinput");
@@ -224,8 +224,8 @@ function renderTagList(scrollPosition) {
         },
         (time) => player.seekTo(time)
     );
-    taglist.innerHTML = "";
-    taglist.appendChild(tags);
+    taglistcontainer.innerHTML = "";
+    taglistcontainer.appendChild(tags);
     tags.scrollTop = scrollPosition;
 }
 
@@ -242,7 +242,7 @@ function undo() {
     const newstate = goBackInHistory();
     if (newstate !== null) {
         tagsJson = newstate;
-        renderTagList(taglist.children[0].scrollTop);
+        renderTagList(taglistcontainer.children[0].scrollTop);
         const output = renderPreferred(tagsJson);
         output_textarea.value = output;
     }
@@ -252,7 +252,7 @@ function redo() {
     const newstate = goForwardInHistory();
     if (newstate !== null) {
         tagsJson = newstate;
-        renderTagList(taglist.children[0].scrollTop);
+        renderTagList(taglistcontainer.children[0].scrollTop);
         const output = renderPreferred(tagsJson);
         output_textarea.value = output;
     }
