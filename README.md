@@ -17,7 +17,7 @@ Currently only supports YouTube videos and stream VODs. YouTube livestreams seem
 - ...that's it--it's pure vanilla JS. 
 
 ## Try it!
-Try it for yourself at <https://kylezhou.me/korotaggertool/korotaggertool.html>
+Try it for yourself at <https://korotaggertool.entire.website/korotaggertool.html>
 
 ## Proposed features
 - [x] Convert korotagger output to YouTube comment format
