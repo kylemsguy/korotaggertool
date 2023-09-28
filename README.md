@@ -43,3 +43,6 @@ Try it for yourself at <https://korotaggertool.entire.website/korotaggertool.htm
 - [ ] Allow disabling autosave (and changing autosave delay)
 - [ ] Add a clear button
 - [ ] Have *some* semblance of Responsive design so it works on more screens than just my MacBook Pro in fullscreen.
+- [ ] Add a "Add new" button that creates a new tag at the current moment
+- [ ] Maybe have some way of indicating which tag was the most recent.
+- [ ] Come up with a new name for the tool, since the only relation to Korotagger is the ability to import tags from that tool.
