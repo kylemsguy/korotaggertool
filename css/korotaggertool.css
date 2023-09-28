@@ -1,0 +1,35 @@
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 50%;
+}
+
+.tagslist {
+    overflow: auto;
+    height: 85vh;
+    width: 90%;
+    list-style-type: none;
+}
+
+.tagtitle {
+    width: 65%;
+}
+
+.jumptobutton {
+    width: 6ch;
+}
+
+#output {
+    overflow: scroll;
+}
+
+#filenameinput {
+    width: 40%;
+}
+
+#sanitycheckcontainer {
+    float: right;
+    padding-right: 10%;
+}

@@ -3,47 +3,11 @@
 
 <head>
     <title>Korotagger tool</title>
-    <script src="bannedwords.js"></script>
-    <script src="historymanager.js"></script>
-    <script src="util.js"></script>
-    <script src="listrenderer.js"></script>
-    <style>
-        .row {
-            display: flex;
-        }
-
-        .column {
-            flex: 50%;
-        }
-
-        .tagslist {
-            overflow: auto;
-            height: 85vh;
-            width: 90%;
-            list-style-type: none;
-        }
-
-        .tagtitle {
-            width: 65%;
-        }
-
-        .jumptobutton {
-            width: 6ch;
-        }
-
-        #output {
-            overflow: scroll;
-        }
-
-        #filenameinput {
-            width: 40%;
-        }
-
-        #sanitycheckcontainer {
-            float: right;
-            padding-right: 10%;
-        }
-    </style>
+    <script src="js/bannedwords.js"></script>
+    <script src="js/historymanager.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/listrenderer.js"></script>
+    <link rel="stylesheet" href="css/korotaggertool.css">
 </head>
 
 <body>
@@ -79,12 +43,12 @@
         <div class="column">
             <div id="player"></div>
             <form id="videoinputform">
-                <input id="videoinput" value="https://www.youtube.com/watch?v=jNQXAC9IVRw" size="50" />
+                <input id="videoinput" value="https://www.youtube.com/watch?v=jNQXAC9IVRw" size="50">
                 <button id="videoinputsubmit" type="submit">Load Video</button>
             </form>
             <form id="videotimeform">
                 <button id="backonesecond">-1s</button>
-                <input id="timedisplay" value="Duration" size="8" />
+                <input id="timedisplay" value="Duration" size="8">
                 <button id="forwardonesecond">+1s</button>
                 <button id="videotimesubmit" type="submit">Jump to Time</button>
             </form>
@@ -93,7 +57,7 @@
             <button id="downloadbutton" onclick="download()">Download to disk (Ctrl-Shift-S)</button>
         </div>
     </div>
-    <script src="korotaggertool.js"></script>
+    <script src="js/korotaggertool.js"></script>
 </body>
 
 </html>
