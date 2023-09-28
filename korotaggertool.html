@@ -18,11 +18,25 @@
 
         .tagslist {
             overflow: auto;
-            height: 650px;
+            height: 85vh;
+            width: 90%;
+        }
+
+        .tagtitle {
+            width: 65%;
         }
 
         #output {
             overflow: scroll;
+        }
+
+        #filenameinput {
+            width: 40%;
+        }
+
+        #sanitycheckcontainer {
+            float: right;
+            padding-right: 10%;
         }
     </style>
 </head>
@@ -30,21 +44,25 @@
 <body>
     <div class="row">
         <div class="column">
-            <button id="convert">Load from !tags</button>
-            <label>Tag Format:</label>
-            <input type="radio" id="ktradio" name="inputtype" value="Korotagger" checked>
-            <label for="ktradio">Korotagger</label>
-            <input type="radio" id="ytradio" name="inputtype" value="YTComment">
-            <label for="ytradio">YT Comment</label>
-            <button id="sanitycheckbutton" onclick="handleSanityCheckButton()">Run Sanity check</button>
-            <button id="clearerrorsbutton" onclick="handleClearSanityCheckErrorButton()">Clear sanity check
-                errors</button>
+            <div id="toprowbuttoncontainer">
+                <button id="convert">Load from !tags</button>
+                <label>Tag Format:</label>
+                <input type="radio" id="ktradio" name="inputtype" value="Korotagger" checked>
+                <label for="ktradio">Korotagger</label>
+                <input type="radio" id="ytradio" name="inputtype" value="YTComment">
+                <label for="ytradio">YT Comment</label>
+            </div>
             <textarea id="input" rows="3" cols="40" placeholder="Paste existing tags here"></textarea>
 
             <div id="undoredocontainer">
                 <button id="undobutton">Undo (Ctrl-Z)</button>
                 <button id="redobutton">Redo (Ctrl-Shift-Z)</button>
                 <button id="savebutton" onclick="handleSaveButton()">Save (Ctrl-S)</button>
+                <span id="sanitycheckcontainer">
+                    <button id="sanitycheckbutton" onclick="handleSanityCheckButton()">Run Sanity check</button>
+                    <button id="clearerrorsbutton" onclick="handleClearSanityCheckErrorButton()">Clear sanity check
+                        errors</button>
+                </span>
             </div>
             <button id="addbutton">Add New (Ctrl-N)</button>
             <span id="status">JavaScript not enabled or check Dev Console.</span>
@@ -65,7 +83,7 @@
                 <button id="forwardonesecond">+1s</button>
                 <button id="videotimesubmit" type="submit">Jump to Time</button>
             </form>
-            <textarea id="output" rows="20" cols="80" placeholder="Output appears here..."></textarea>
+            <textarea id="output" rows="20" cols="80" placeholder="Output appears here..."></textarea><br>
             <input id="filenameinput" size="70" value="tags.txt">
             <button id="downloadbutton" onclick="download()">Download to disk (Ctrl-Shift-S)</button>
         </div>

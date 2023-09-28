@@ -38,6 +38,7 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
         const title = document.createElement("input");
         title.value = tag.text;
         title.size = 50;
+        title.className = "tagtitle";
         title.addEventListener("change", (ev) => {
             tags[i].text = title.value;
             tagChangeCallback(tags, ol.scrollTop);
@@ -47,7 +48,7 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
         if (!isNaN(tag.time) && tag.time !== null) {
             time.value = secondsToTimestamp(tag.time);
         }
-        time.className = "time";
+        time.className = "tagtime";
         time.size = 8;
         time.addEventListener("change", (ev) => {
             let seconds = smartTimestampToSeconds(time.value);
