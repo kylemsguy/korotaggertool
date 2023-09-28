@@ -69,7 +69,11 @@ convert_button.onclick = ev => {
     } else {
         tagsJson = parseTags(input_textarea.value);
     }
-    loadVideoFromTags(tagsJson);
+    if (loadVideoFromTags(tagsJson)) {
+        // If the first line contained metadata, remove that line.
+        // I really hope nobody is insane enough to include a video link in the first tag...
+        tagsJson.shift();
+    }
     newHistory(tagsJson);
     renderTagList();
     renderOutput();
@@ -169,7 +173,9 @@ function loadVideoFromTags(tags) {
             videoid_input.value = "https://www.youtube.com/watch?v=" + videoId;
             loadVideo(videoId);
         }
+        return true;
     }
+    return false;
 }
 
 function loadVideoFromUrl(url) {
