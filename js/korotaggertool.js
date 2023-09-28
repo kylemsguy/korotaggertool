@@ -45,13 +45,12 @@ if (tagsJson === undefined || tagsJson === null || tagsJson.length === 0) {
     // Initalize tag list to have 1 item to make it look good
     tagsJson = [];
     addNewTag();
+    renderOutput();
 } else {
     // console.log(tagsJson);
     newHistory(tagsJson);
     renderTagList();
-
-    const output = renderPreferred(tagsJson);
-    output_textarea.value = output;
+    renderOutput();
 
     const videoUrl = loadActiveVideofromStorage();
     // const videoid = getIdFromUrl(tagsJson[0].text);
@@ -73,8 +72,7 @@ convert_button.onclick = ev => {
     loadVideoFromTags(tagsJson);
     newHistory(tagsJson);
     renderTagList();
-    const output = renderPreferred(tagsJson);
-    output_textarea.value = output;
+    renderOutput();
 };
 
 addbutton.onclick = addNewTag;
@@ -113,9 +111,9 @@ forwardonesecond.onclick = ev => {
     player.seekTo(newtime, true);
 }
 
-undobutton.onclick = undo;
-
-redobutton.onclick = redo;
+filename_input.addEventListener("change", (ev) => {
+    renderOutput();
+});
 
 // 2. This code loads the IFrame Player API code asynchronously.
 const tag = document.createElement('script');
@@ -184,7 +182,7 @@ function loadVideo(id) {
     setTimeout(() => {
         const videodata = player.getVideoData();
         console.log(videodata);
-        filename_input.value = videodata.title + " - " + videodata.author + ".txt";
+        filename_input.value = videodata.title + " - " + videodata.author;
     }, 1000);
 }
 
@@ -219,8 +217,7 @@ function renderTagList(scrollPosition) {
             });
             updateTagsWithHistory(t);
             renderTagList(sp);
-            const output = renderPreferred(tagsJson);
-            output_textarea.value = output;
+            renderOutput();
         },
         (time) => player.seekTo(time)
     );
@@ -243,8 +240,7 @@ function undo() {
     if (newstate !== null) {
         tagsJson = newstate;
         renderTagList(taglistcontainer.children[0].scrollTop);
-        const output = renderPreferred(tagsJson);
-        output_textarea.value = output;
+        renderOutput();
     }
 }
 
@@ -253,8 +249,7 @@ function redo() {
     if (newstate !== null) {
         tagsJson = newstate;
         renderTagList(taglistcontainer.children[0].scrollTop);
-        const output = renderPreferred(tagsJson);
-        output_textarea.value = output;
+        renderOutput();
     }
 }
 
@@ -301,6 +296,12 @@ function updateStatus(text) {
 function handleSaveButton() {
     updateStatus("Manually saved at " + new Date().toLocaleString())
     save();
+}
+
+function renderOutput() {
+    const output_header = filename_input.value + " (" + videoid_input.value + ")\n";
+    const output = renderPreferred(tagsJson);
+    output_textarea.value = output_header + output;
 }
 
 const autosaveInterval = setInterval(autoSave, 5000);
