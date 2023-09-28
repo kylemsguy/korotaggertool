@@ -50,7 +50,6 @@ if (tagsJson === undefined || tagsJson === null || tagsJson.length === 0) {
     // console.log(tagsJson);
     newHistory(tagsJson);
     renderTagList();
-    renderOutput();
 
     const videoUrl = loadActiveVideofromStorage();
     // const videoid = getIdFromUrl(tagsJson[0].text);
@@ -61,6 +60,7 @@ if (tagsJson === undefined || tagsJson === null || tagsJson.length === 0) {
     if (filename !== null) {
         filename_input.value = filename;
     }
+    renderOutput();
 }
 
 convert_button.onclick = ev => {
