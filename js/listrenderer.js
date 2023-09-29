@@ -59,6 +59,47 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
         const boxUpRightCharacter = "└";
         const boxHorizontalCharacter = "─";
 
+        const boxchars = ["├", "└", "─"];
+
+        const boxCharacterButton = document.createElement("button");
+        switch(title.value[0]){
+            case boxVerticalRightCharacter:
+                boxCharacterButton.innerText = boxUpRightCharacter;
+                break;
+            case boxUpRightCharacter:
+                boxCharacterButton.innerHTML = boxHorizontalCharacter;
+                break;
+            case boxHorizontalCharacter:
+                boxCharacterButton.innerHTML = "&ensp;";
+                break;
+            default:
+                boxCharacterButton.innerText = boxVerticalRightCharacter;
+        }
+        boxCharacterButton.onclick = ev => {
+            if (title.value.length === 0) {
+                title = boxVerticalRightCharacter;
+                return;
+            }
+            // TODO: make this more of a state machine
+            switch(title.value[0]){
+                case boxVerticalRightCharacter:
+                    boxCharacterButton.innerText = boxHorizontalCharacter;
+                    title.value = boxUpRightCharacter + title.value.slice(1);
+                    break;
+                case boxUpRightCharacter:
+                    boxCharacterButton.innerHTML = "&ensp;";
+                    title.value = boxHorizontalCharacter + title.value.slice(1);
+                    break;
+                case boxHorizontalCharacter:
+                    boxCharacterButton.innerText = boxVerticalRightCharacter;
+                    title.value = title.value.slice(1);
+                    break;
+                default:
+                    boxCharacterButton.innerText = boxUpRightCharacter;
+                    title.value = boxVerticalRightCharacter + title.value;
+            }
+        }
+
         const boxVerticalRightButton = document.createElement("button");
         boxVerticalRightButton.innerText = boxVerticalRightCharacter;
         boxVerticalRightButton.onclick = ev => {
@@ -128,12 +169,13 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
         }
 
         row.appendChild(jumptobutton);
+        row.appendChild(boxCharacterButton);
         row.appendChild(title);
         row.appendChild(time);
         row.appendChild(syncbutton);
-        row.appendChild(boxVerticalRightButton);
-        row.appendChild(boxUpRightButton);
-        row.appendChild(boxHorizontalButton);
+        // row.appendChild(boxVerticalRightButton);
+        // row.appendChild(boxUpRightButton);
+        // row.appendChild(boxHorizontalButton);
         row.appendChild(deletebutton);
         row.appendChild(infobutton);
 
