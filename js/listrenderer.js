@@ -76,10 +76,6 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
                 boxCharacterButton.innerText = boxVerticalRightCharacter;
         }
         boxCharacterButton.onclick = ev => {
-            if (title.value.length === 0) {
-                title = boxVerticalRightCharacter;
-                return;
-            }
             // TODO: make this more of a state machine
             switch(title.value[0]){
                 case boxVerticalRightCharacter:
@@ -98,6 +94,7 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
                     boxCharacterButton.innerText = boxUpRightCharacter;
                     title.value = boxVerticalRightCharacter + title.value;
             }
+            tagChangeCallback(tags, ol.scrollTop);
         }
 
         const time = document.createElement("input");
