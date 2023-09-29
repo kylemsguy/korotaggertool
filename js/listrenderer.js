@@ -100,25 +100,6 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
             }
         }
 
-        const boxVerticalRightButton = document.createElement("button");
-        boxVerticalRightButton.innerText = boxVerticalRightCharacter;
-        boxVerticalRightButton.onclick = ev => {
-            title.value = boxVerticalRightCharacter + title.value;
-        }
-
-        const boxUpRightButton = document.createElement("button");
-        boxUpRightButton.innerText = boxUpRightCharacter;
-        boxUpRightButton.onclick = ev => {
-            title.value = boxUpRightCharacter + title.value;
-        }
-
-
-        const boxHorizontalButton = document.createElement("button");
-        boxHorizontalButton.innerText = boxHorizontalCharacter;
-        boxHorizontalButton.onclick = ev => {
-            title.value = boxHorizontalCharacter + title.value;
-        }
-
         const time = document.createElement("input");
         if (!isNaN(tag.time) && tag.time !== null) {
             time.value = secondsToTimestamp(tag.time);
