@@ -37,6 +37,8 @@ function renderTags(tags, tagChangeCallback, videoTimeUpdateCallback) {
 
         const jumptobutton = document.createElement("button");
         jumptobutton.onclick = ev => {
+            // This tight coupling with a variable defined in korotaggertool.js feels wrong...
+            afterbox.value = i + 1;
             if (!isNaN(tag.time) && tag.time !== null) {
                 videoTimeUpdateCallback(tag.time);
             }
@@ -62,7 +64,7 @@ function renderTags(tags, tagChangeCallback, videoTimeUpdateCallback) {
         const boxchars = ["├", "└", "─"];
 
         const boxCharacterButton = document.createElement("button");
-        switch(title.value[0]){
+        switch (title.value[0]) {
             case boxVerticalRightCharacter:
                 boxCharacterButton.innerText = boxUpRightCharacter;
                 break;
@@ -77,7 +79,7 @@ function renderTags(tags, tagChangeCallback, videoTimeUpdateCallback) {
         }
         boxCharacterButton.onclick = ev => {
             // TODO: make this more of a state machine
-            switch(title.value[0]){
+            switch (title.value[0]) {
                 case boxVerticalRightCharacter:
                     boxCharacterButton.innerText = boxHorizontalCharacter;
                     title.value = boxUpRightCharacter + title.value.slice(1);

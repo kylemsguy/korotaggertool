@@ -34,8 +34,10 @@
                         errors</button>
                 </span>
             </div>
-            <button id="addbutton">Add New (Ctrl-N)</button>
-            Status: 
+            <button id="addbutton" onclick="handleAddNewTagButton()">Add New (Ctrl-N)</button>
+            <label for="afterbox">After:</label>
+            <input id="afterbox" type="number" value="0" min="0" max="99">
+            Status:
             <span id="status">JavaScript not enabled or check Dev Console.</span>
             <div id="taglistcontainer">
                 <h1>JavaScript is required.</h1>

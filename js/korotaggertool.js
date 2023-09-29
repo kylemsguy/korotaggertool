@@ -10,7 +10,7 @@ document.addEventListener("keydown", (e) => {
         download();
         e.preventDefault();
     } else if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
-        addNewTag();
+        handleAddNewTagButton();
         e.preventDefault();
     } else if ((e.ctrlKey || e.metaKey) && e.key === 's') {
         handleSaveButton();
@@ -24,7 +24,7 @@ const convert_button = document.getElementById("convert");
 const kt_radio = document.getElementById("ktradio");
 const yt_radio = document.getElementById("ytradio");
 const padhours_check = document.getElementById("padhours");
-const addbutton = document.getElementById("addbutton");
+const afterbox = document.getElementById("afterbox");
 const input_textarea = document.getElementById("input");
 const output_textarea = document.getElementById("output");
 const videoid_input = document.getElementById("videoinput");
@@ -77,8 +77,6 @@ convert_button.onclick = ev => {
     renderTagList();
     renderOutput();
 };
-
-addbutton.onclick = addNewTag;
 
 videoidinput_form.onsubmit = ev => {
     loadVideoFromUrl(videoid_input.value);
@@ -220,13 +218,19 @@ function renderTagList(scrollPosition) {
     tags.scrollTop = scrollPosition;
 }
 
-function addNewTag() {
-    tagsJson.unshift({
+function addNewTag(position) {
+    const newItem = {
         "text": "",
         "time": null
-    })
+    };
+    if (position === undefined) {
+        tagsJson.unshift(newItem);
+    } else {
+        tagsJson.splice(position, 0, newItem);
+    }
     addToHistory(tagsJson);
     renderTagList();
+    renderOutput();
 }
 
 function undo() {
@@ -273,6 +277,10 @@ function save() {
     saveTagFilenameToLocalStorage(filename_input.value);
 }
 
+function handleAddNewTagButton() {
+    addNewTag(afterbox.value);
+}
+
 function handleSanityCheckButton() {
     sanityCheckTags(tagsJson);
     renderTagList();
@@ -303,6 +311,9 @@ function seekVideo(seconds) {
 }
 
 function renderOutput() {
+    // TODO: find a better way to run an action when tagsJson is changed
+    afterbox.setAttribute("max", tagsJson.length);
+
     const output_header = filename_input.value + " (" + videoid_input.value + ")\n";
     const output = renderPreferred(tagsJson, padhours_check.checked);
     output_textarea.value = output_header + output;
