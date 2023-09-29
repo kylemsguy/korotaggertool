@@ -35,8 +35,6 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
         const row = document.createElement("li");
         row.className = "tagrow";
 
-        // ├ └ and ─
-
         const jumptobutton = document.createElement("button");
         jumptobutton.onclick = ev => {
             if (!isNaN(tag.time) && tag.time !== null) {
@@ -54,6 +52,31 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
             tags[i].text = title.value;
             tagChangeCallback(tags, ol.scrollTop);
         });
+
+        // ├ └ and ─
+
+        const boxVerticalRightCharacter = "├";
+        const boxUpRightCharacter = "└";
+        const boxHorizontalCharacter = "─";
+
+        const boxVerticalRightButton = document.createElement("button");
+        boxVerticalRightButton.innerText = boxVerticalRightCharacter;
+        boxVerticalRightButton.onclick = ev => {
+            title.value = boxVerticalRightCharacter + title.value;
+        }
+
+        const boxUpRightButton = document.createElement("button");
+        boxUpRightButton.innerText = boxUpRightCharacter;
+        boxUpRightButton.onclick = ev => {
+            title.value = boxUpRightCharacter + title.value;
+        }
+
+
+        const boxHorizontalButton = document.createElement("button");
+        boxHorizontalButton.innerText = boxHorizontalCharacter;
+        boxHorizontalButton.onclick = ev => {
+            title.value = boxHorizontalCharacter + title.value;
+        }
 
         const time = document.createElement("input");
         if (!isNaN(tag.time) && tag.time !== null) {
@@ -108,6 +131,9 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
         row.appendChild(title);
         row.appendChild(time);
         row.appendChild(syncbutton);
+        row.appendChild(boxVerticalRightButton);
+        row.appendChild(boxUpRightButton);
+        row.appendChild(boxHorizontalButton);
         row.appendChild(deletebutton);
         row.appendChild(infobutton);
 
