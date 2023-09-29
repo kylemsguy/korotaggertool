@@ -94,6 +94,7 @@ function renderTags(tags, tagChangeCallback, videoTimeUpdateCallback) {
                     boxCharacterButton.innerText = boxUpRightCharacter;
                     title.value = boxVerticalRightCharacter + title.value;
             }
+            tags[i].text = title.value;
             tagChangeCallback(tags, ol.scrollTop);
         }
 
