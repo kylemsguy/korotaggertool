@@ -46,4 +46,5 @@ Try it for yourself at <https://korotaggertool.entire.website/korotaggertool.htm
 - [ ] Add a "Add new" button that creates a new tag at the current moment
 - [ ] Maybe have some way of indicating which tag was the most recent.
 - [ ] Come up with a new name for the tool, since the only relation to Korotagger is the ability to import tags from that tool.
-- [ ] Instead of having buttons on each row that sync to the video time/seek around, have the number button be a "select" button and have the controls under the video player
+- ~~[ ] Instead of having buttons on each row that sync to the video time/seek around, have the number button be a "select" button and have the controls under the video player~~
+- [ ] Fix bug where if you insert a new tag, the list jumps to the top (jumping to where the tag was added )
