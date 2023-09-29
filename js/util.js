@@ -98,7 +98,7 @@ function parseSingleTagYTCommentTag(tag) {
 function parseTags(input, parser) {
     const split_input = input.replace(/\r/g, "").split(/\n/);
     if (parser === undefined) {
-        parser = parseSingleTagKorotagger
+        parser = parseSingleTagKorotagger;
     }
     return split_input.map(parser);
 }
@@ -107,7 +107,7 @@ function secondsToTimestamp(seconds) {
     if (isNaN(seconds)) {
         return NaN;
     }
-    return new Date(seconds * 1000).toISOString().slice(11, 19)
+    return new Date(seconds * 1000).toISOString().slice(11, 19);
 }
 
 function timestampToSeconds(timestamp) {
