@@ -103,11 +103,15 @@ function parseTags(input, parser) {
     return split_input.map(parser);
 }
 
-function secondsToTimestamp(seconds) {
+function secondsToTimestamp(seconds, padHours) {
     if (isNaN(seconds)) {
         return NaN;
     }
-    return new Date(seconds * 1000).toISOString().slice(11, 19);
+    const timestamp = new Date(seconds * 1000).toISOString().slice(11, 19);
+    if (padHours !== true && seconds < 3600) {
+        return timestamp.split(":").slice(1).join(":");
+    }
+    return timestamp;
 }
 
 function timestampToSeconds(timestamp) {
@@ -131,15 +135,15 @@ function smartTimestampToSeconds(timestamp) {
     return seconds;
 }
 
-function renderPreferred(tags_json) {
-    const tags_rendered = tags_json.map(val => {
+function renderPreferred(tagsJson, padHours) {
+    const tagsRendered = tagsJson.map(val => {
         if (isNaN(val.time) || val.time === null) {
             return val.text;
         }
-        const timestamp = secondsToTimestamp(val.time);
+        const timestamp = secondsToTimestamp(val.time, padHours);
         return timestamp + " " + val.text;
     })
-    return tags_rendered.join("\n");
+    return tagsRendered.join("\n");
 }
 
 function getIdFromUrl(url) {

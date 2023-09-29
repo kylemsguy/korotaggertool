@@ -16,7 +16,7 @@
         <div class="column">
             <div id="toprowbuttoncontainer">
                 <button id="convert">Load from !tags</button>
-                <label>Tag Format:</label>
+                <label>Input Tag Format:</label>
                 <input type="radio" id="ktradio" name="inputtype" value="Korotagger" checked>
                 <label for="ktradio">Korotagger</label>
                 <input type="radio" id="ytradio" name="inputtype" value="YTComment">
@@ -35,6 +35,7 @@
                 </span>
             </div>
             <button id="addbutton">Add New (Ctrl-N)</button>
+            Status: 
             <span id="status">JavaScript not enabled or check Dev Console.</span>
             <div id="taglistcontainer">
                 <h1>JavaScript is required.</h1>
@@ -60,6 +61,8 @@
                 <button id="videotimesubmit" type="submit">Jump to Time</button>
             </form>
             <textarea id="output" rows="20" cols="80" placeholder="Output appears here..."></textarea><br>
+            <label for="padhours">Pad Hours:</label>
+            <input type="checkbox" id="padhours" name="padhours">
             <input id="filenameinput" size="70" value="tags">
             <button id="downloadbutton" onclick="download()">Download to disk (Ctrl-Shift-S)</button>
         </div>

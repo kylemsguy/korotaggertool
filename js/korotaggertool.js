@@ -23,6 +23,7 @@ document.addEventListener("keydown", (e) => {
 const convert_button = document.getElementById("convert");
 const kt_radio = document.getElementById("ktradio");
 const yt_radio = document.getElementById("ytradio");
+const padhours_check = document.getElementById("padhours");
 const addbutton = document.getElementById("addbutton");
 const input_textarea = document.getElementById("input");
 const output_textarea = document.getElementById("output");
@@ -101,6 +102,11 @@ videotime_form.onsubmit = ev => {
 filename_input.addEventListener("change", (ev) => {
     renderOutput();
 });
+
+padhours_check.addEventListener("change", ev => {
+    // TODO: save this preference in LocalStorage
+    renderOutput();
+})
 
 // 2. This code loads the IFrame Player API code asynchronously.
 const tag = document.createElement('script');
@@ -184,7 +190,7 @@ function getVideoTime() {
 }
 
 function updateVideoTimeDisplay() {
-    timedisplay.value = secondsToTimestamp(getVideoTime());
+    timedisplay.value = secondsToTimestamp(getVideoTime(), true);
 }
 
 function updateTagsWithHistory(newTagJson) {
@@ -293,13 +299,13 @@ function seekVideo(seconds) {
     if (newtime < 0) {
         newtime = 0;
     }
-    timedisplay.value = secondsToTimestamp(newtime);
+    timedisplay.value = secondsToTimestamp(newtime, true);
     player.seekTo(newtime, true);
 }
 
 function renderOutput() {
     const output_header = filename_input.value + " (" + videoid_input.value + ")\n";
-    const output = renderPreferred(tagsJson);
+    const output = renderPreferred(tagsJson, padhours_check.checked);
     output_textarea.value = output_header + output;
 }
 

@@ -102,7 +102,7 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
 
         const time = document.createElement("input");
         if (!isNaN(tag.time) && tag.time !== null) {
-            time.value = secondsToTimestamp(tag.time);
+            time.value = secondsToTimestamp(tag.time, true);
         }
         time.className = "tagtime";
         time.size = 8;
