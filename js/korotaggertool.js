@@ -1,21 +1,21 @@
 document.addEventListener("keydown", (e) => {
     // console.log((e.ctrlKey || e.metaKey), e.shiftKey, e.key);
-    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key == 'z') {
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'z') {
         redo();
         e.preventDefault();
-    } else if ((e.ctrlKey || e.metaKey) && e.key == 'z') {
+    } else if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
         undo();
         e.preventDefault();
-    } else if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key == 's') {
+    } else if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 's') {
         download();
         e.preventDefault();
-    } else if ((e.ctrlKey || e.metaKey) && e.key == 'n') {
+    } else if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
         addNewTag();
         e.preventDefault();
-    } else if ((e.ctrlKey || e.metaKey) && e.key == 's') {
+    } else if ((e.ctrlKey || e.metaKey) && e.key === 's') {
         handleSaveButton();
         e.preventDefault();
-    }/*else if ((e.ctrlKey || e.metaKey) && e.key == 'y') {
+    }/*else if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
         redo();
         e.preventDefault();
     }*/
@@ -155,7 +155,7 @@ function onPlayerReady(event) {
 //    the player should update the timestamp every second.
 let secondsUpdateInterval = null;
 function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.PLAYING && !secondsUpdateInterval) {
+    if (event.data === YT.PlayerState.PLAYING && !secondsUpdateInterval) {
         secondsUpdateInterval = setInterval(updateVideoTimeDisplay, 10);
     } else {
         if (secondsUpdateInterval) {

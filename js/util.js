@@ -1,5 +1,7 @@
-function parse_timestamp(timestamp) {
+function parseUrlTimestamp(timestamp) {
     /** 
+     * Parses timestamp of form XXhYYmZZs (e.g. 1h22m33s)
+     * 
      * Note: this doesn't handle some malformed strings, like 1h1h1h1h or 1s1h1m
      * All this does is takes each sequence and sums it up
      * 
@@ -7,7 +9,7 @@ function parse_timestamp(timestamp) {
      */
     let total = 0;
 
-    if (timestamp.length == 0) {
+    if (timestamp.length === 0) {
         console.log("Malformed timestamp (empty)");
         return NaN;
     }
@@ -21,7 +23,7 @@ function parse_timestamp(timestamp) {
         if (!isNaN(timestamp[i])) {
             buffer.push(timestamp[i]);
         } else {
-            if (buffer.length == 0) {
+            if (buffer.length === 0) {
                 console.log("Malformed timestamp <" + timestamp + ">");
                 return NaN;
             }
@@ -56,7 +58,7 @@ function parseSingleTagKorotagger(tag) {
     const elements = tag.split(" ");
     const timestamp_raw = elements[elements.length - 1];
     const tag_text = elements.slice(0, elements.length - 1).join(" ");
-    const timestamp = parse_timestamp(timestamp_raw);
+    const timestamp = parseUrlTimestamp(timestamp_raw);
 
     if (!isNaN(timestamp)) {
         return {
@@ -94,7 +96,6 @@ function parseSingleTagYTCommentTag(tag) {
 
 
 function parseTags(input, parser) {
-    const tags = [];
     const split_input = input.replace(/\r/g, "").split(/\n/);
     if (parser === undefined) {
         parser = parseSingleTagKorotagger
@@ -125,7 +126,7 @@ function smartTimestampToSeconds(timestamp) {
      */
     let seconds = timestampToSeconds(timestamp);
     if (isNaN(seconds)) {
-        seconds = parse_timestamp(timestamp);
+        seconds = parseUrlTimestamp(timestamp);
     }
     return seconds;
 }
