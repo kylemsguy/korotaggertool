@@ -201,7 +201,6 @@ function updateTagsWithHistory(newTagJson) {
 function renderTagList(scrollPosition) {
     const tags = renderTags(
         tagsJson,
-        scrollPosition,
         (t, sp) => {
             t.sort((a, b) => {
                 const diff = a.time - b.time;

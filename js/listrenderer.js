@@ -1,4 +1,4 @@
-function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCallback) {
+function renderTags(tags, tagChangeCallback, videoTimeUpdateCallback) {
     /**
      * tags: Tags (see below for format)
      * tagChangeCallback: A callback that is called when the tags are updated and need to be rerendered. 
