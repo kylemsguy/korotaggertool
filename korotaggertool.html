@@ -47,9 +47,15 @@
                 <button id="videoinputsubmit" type="submit">Load Video</button>
             </form>
             <form id="videotimeform">
-                <button id="backonesecond">-1s</button>
+                <button onclick="seekVideo(-30)">-30s</button>
+                <button onclick="seekVideo(-10)">-10s</button>
+                <button onclick="seekVideo(-5)">-5s</button>
+                <button onclick="seekVideo(-1)">-1s</button>
                 <input id="timedisplay" value="Duration" size="8">
-                <button id="forwardonesecond">+1s</button>
+                <button onclick="seekVideo(1)">+1s</button>
+                <button onclick="seekVideo(5)">+5s</button>
+                <button onclick="seekVideo(10)">+10s</button>
+                <button onclick="seekVideo(30)">+30s</button>
                 <button id="videotimesubmit" type="submit">Jump to Time</button>
             </form>
             <textarea id="output" rows="20" cols="80" placeholder="Output appears here..."></textarea><br>

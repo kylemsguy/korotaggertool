@@ -30,8 +30,6 @@ const videoid_input = document.getElementById("videoinput");
 const videoidinput_form = document.getElementById("videoinputform");
 const timedisplay = document.getElementById("timedisplay");
 const videotime_form = document.getElementById("videotimeform");
-const backonesecond = document.getElementById("backonesecond");
-const forwardonesecond = document.getElementById("forwardonesecond");
 const taglistcontainer = document.getElementById("taglistcontainer");
 const undobutton = document.getElementById("undobutton");
 const redobutton = document.getElementById("redobutton");
@@ -98,21 +96,6 @@ videotime_form.onsubmit = ev => {
     player.seekTo(seconds, true);
     ev.preventDefault();
     return false;
-}
-
-backonesecond.onclick = ev => {
-    let newtime = getVideoTime() - 1;
-    if (newtime < 0) {
-        newtime = 0;
-    }
-    timedisplay.value = secondsToTimestamp(newtime);
-    player.seekTo(newtime, true);
-}
-
-forwardonesecond.onclick = ev => {
-    let newtime = getVideoTime() + 1;
-    timedisplay.value = secondsToTimestamp(newtime);
-    player.seekTo(newtime, true);
 }
 
 filename_input.addEventListener("change", (ev) => {
@@ -302,6 +285,16 @@ function updateStatus(text) {
 function handleSaveButton() {
     updateStatus("Manually saved at " + new Date().toLocaleString())
     save();
+}
+
+function seekVideo(seconds) {
+    let newtime = getVideoTime() + seconds;
+    // Attempt to prevent breaking the video player
+    if (newtime < 0) {
+        newtime = 0;
+    }
+    timedisplay.value = secondsToTimestamp(newtime);
+    player.seekTo(newtime, true);
 }
 
 function renderOutput() {

@@ -35,6 +35,17 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
         const row = document.createElement("li");
         row.className = "tagrow";
 
+        // ├ └ and ─
+
+        const jumptobutton = document.createElement("button");
+        jumptobutton.onclick = ev => {
+            if (!isNaN(tag.time) && tag.time !== null) {
+                videoTimeUpdateCallback(tag.time);
+            }
+        }
+        jumptobutton.innerText = (i + 1) + ".";
+        jumptobutton.className = "jumptobutton";
+
         const title = document.createElement("input");
         title.value = tag.text;
         title.size = 50;
@@ -67,16 +78,7 @@ function renderTags(tags, scrollPosition, tagChangeCallback, videoTimeUpdateCall
             tags[i].time = videoTime;
             tagChangeCallback(tags, ol.scrollTop);
         }
-        syncbutton.innerText = "Adjust to Current Position";
-
-        const jumptobutton = document.createElement("button");
-        jumptobutton.onclick = ev => {
-            if (!isNaN(tag.time) && tag.time !== null) {
-                videoTimeUpdateCallback(tag.time);
-            }
-        }
-        jumptobutton.innerText = (i + 1) + ".";
-        jumptobutton.className = "jumptobutton";
+        syncbutton.innerText = "Sync with Player";
 
         const deletebutton = document.createElement("button");
         deletebutton.onclick = ev => {
