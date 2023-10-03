@@ -48,3 +48,5 @@ Try it for yourself at <https://korotaggertool.entire.website/korotaggertool.htm
 - [ ] Come up with a new name for the tool, since the only relation to Korotagger is the ability to import tags from that tool.
 - ~~[ ] Instead of having buttons on each row that sync to the video time/seek around, have the number button be a "select" button and have the controls under the video player~~
 - [ ] Fix bug where if you insert a new tag, the list jumps to the top (jumping to where the tag was added )
+- [ ] When saving, check a timestamp and show a message if there's a newer save (to handle the case where the user has mulitple windows open at the same time)
+- [ ] Implement multiple save files.
