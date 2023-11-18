@@ -12,6 +12,26 @@
 </head>
 
 <body>
+    <div id="settingsModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="closeSettingsModal()">&times;</span>
+            <h1>Settings</h1>
+            <h3>Autosave Interval</h3>
+            <p>The autosave interval in seconds. Set this to 0 to disable autosave. Range is 0-60 (up to a minute)</p>
+            <label for="autosaveinterval">Autosave Interval:</label>
+            <input id="autosaveinterval" type="number" value="0" min="0" max="60">
+            <button onclick="updateAutosaveInterval()">Apply</button> Default is 5 seconds<br>
+            <hr>
+            <h2>Sanity Check Options</h2>
+            <p>This feature was requested since some taggers have had problems with tag comments becoming shadowbanned
+                (or at least held for review). This check is just to flag potential problematic words. If this isn't a
+                concern, simply ignore this feature.</p>
+            <label for="bannedwords">Banned words</label><br>
+            <textarea id="bannedwords" rows="20" cols="40" placeholder="Banned words go Here"></textarea><br>
+            <button onClick="saveBannedWords()" disabled>Save</button><br>
+        </div>
+    </div>
     <div class="row">
         <div class="column">
             <div id="toprowbuttoncontainer">
@@ -21,6 +41,9 @@
                 <label for="ktradio">Korotagger</label>
                 <input type="radio" id="ytradio" name="inputtype" value="YTComment">
                 <label for="ytradio">YT Comment</label>
+                <span class="floatrightcontainer">
+                    <button id="settingsButton" onclick="showSettings()">Settings</button>
+                </span>
             </div>
             <textarea id="input" rows="3" cols="40" placeholder="Paste existing tags here"></textarea>
 
@@ -28,7 +51,7 @@
                 <button id="undobutton" onclick="undo()">Undo (Ctrl-Z)</button>
                 <button id="redobutton" onclick="redo()">Redo (Ctrl-Shift-Z)</button>
                 <button id="savebutton" onclick="handleSaveButton()">Save (Ctrl-S)</button>
-                <span id="sanitycheckcontainer">
+                <span id="sanitycheckcontainer" class="floatrightcontainer">
                     <button id="sanitycheckbutton" onclick="handleSanityCheckButton()">Run Sanity check</button>
                     <button id="clearerrorsbutton" onclick="handleClearSanityCheckErrorButton()">Clear sanity check
                         errors</button>
