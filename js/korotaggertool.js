@@ -229,7 +229,8 @@ function addNewTag(position) {
         tagsJson.splice(position, 0, newItem);
     }
     addToHistory(tagsJson);
-    renderTagList();
+    const ol = document.getElementsByClassName("tagslist")[0];
+    renderTagList(ol ? ol.scrollTop : undefined);
     renderOutput();
 }
 
