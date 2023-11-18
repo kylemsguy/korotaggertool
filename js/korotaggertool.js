@@ -37,8 +37,15 @@ const redobutton = document.getElementById("redobutton");
 const filename_input = document.getElementById("filenameinput");
 const status_span = document.getElementById("status");
 
+const settings_modal = document.getElementById("settingsModal");
+const autosavedelay_input = document.getElementById("autosaveinterval");
+const bannedwords_textarea = document.getElementById("bannedwords");
+
 let player;
 let tagsJson = loadTagsFromStorage();
+
+let autosaveInterval = null;
+let autosaveDelay = getAutosaveDelayFromLocalStorage();  // in seconds
 
 if (tagsJson === undefined || tagsJson === null || tagsJson.length === 0) {
     // Initalize tag list to have 1 item to make it look good
@@ -279,7 +286,7 @@ function save() {
 }
 
 function handleAddNewTagButton() {
-    addNewTag(afterbox.value);
+    addNewTag(afterbox.valueAsNumber);
 }
 
 function handleSanityCheckButton() {
@@ -320,5 +327,53 @@ function renderOutput() {
     output_textarea.value = output_header + output;
 }
 
-const autosaveInterval = setInterval(autoSave, 5000);
-status_span.innerText = "Autosave on in 5s intervals."
+function showSettings() {
+    autosavedelay_input.value = autosaveDelay;
+    // TODO: make this configurable
+    bannedwords_textarea.value = arrayToNewlineSeparated(bannedWords);
+    settings_modal.style.display = "block";
+}
+
+function closeSettingsModal() {
+    settings_modal.style.display = "none";
+}
+
+function startAutoSave(delay) {
+    // delay is in seconds
+    if (delay === 0) {
+        status_span.innerText = "Autosave is disabled.";
+        return;
+    }
+    autosaveInterval = setInterval(autoSave, delay * 1000);
+    status_span.innerText = "Autosave on in " + delay + "s intervals.";
+}
+
+function stopAutoSave() {
+    if (autosaveInterval !== null) {
+        clearInterval(autosaveInterval);
+        autosaveInterval = null;
+    }
+}
+
+function updateAutosaveInterval() {
+    stopAutoSave();
+
+    autosaveDelay = autosavedelay_input.valueAsNumber;
+
+    saveAutosaveDelayToLocalStorage(autosaveDelay);
+    startAutoSave(autosaveDelay)
+}
+
+function saveBannedWords() {
+    // TODO: implement
+}
+
+// close settings modal if clicked outside of it 
+window.onclick = function (event) {
+    if (event.target == settings_modal) {
+        closeSettingsModal()
+    }
+}
+
+// Set up autosave
+startAutoSave(autosaveDelay);
