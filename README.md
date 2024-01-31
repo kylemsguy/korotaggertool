@@ -21,7 +21,7 @@ Try it for yourself at <https://korotaggertool.entire.website/korotaggertool.htm
 
 ## Proposed features
 - [x] Convert korotagger output to YouTube comment format
-~~- [ ] Convert YouTube comment format to korotagger output (allowing user to pass in a format string)~~ This probably isn't very useful. Dropping.
+- [ ] ~~Convert YouTube comment format to korotagger output (allowing user to pass in a format string)~~ This probably isn't very useful. Dropping.
 - [x] Implement tag editor with video embed that lets you test your modified tags
 - [x] This also includes autofilling the current timestamp, as well as editing the timestamp/text
 - [x] Implement a banned words sanity check. # (Basic one implemented)
@@ -46,7 +46,7 @@ Try it for yourself at <https://korotaggertool.entire.website/korotaggertool.htm
 - [x] Add a "Add new" button that creates a new tag at the current moment
 - [ ] Maybe have some way of indicating which tag was the most recent.
 - [ ] Come up with a new name for the tool, since the only relation to Korotagger is the ability to import tags from that tool.
-- ~~[ ] Instead of having buttons on each row that sync to the video time/seek around, have the number button be a "select" button and have the controls under the video player~~
+- [ ] ~~Instead of having buttons on each row that sync to the video time/seek around, have the number button be a "select" button and have the controls under the video player~~
 - [x] Fix bug where if you insert a new tag, the list jumps to the top (jumping to where the tag was added )
 - [ ] When saving, check a timestamp and show a message if there's a newer save (to handle the case where the user has mulitple windows open at the same time)
 - [ ] Implement multiple save files.
