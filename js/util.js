@@ -175,6 +175,14 @@ function loadTagsFromStorage() {
     }
 }
 
+function arrayToNewlineSeparated(array) {
+    return array.join("\n");
+}
+
+function newlineSeparatedToArray(string) {
+    return string.split("\n")
+}
+
 function saveTagsToStorage(tags) {
     window.localStorage.setItem("currentTags", JSON.stringify(tags));
 }
@@ -193,4 +201,25 @@ function loadTagFilenameFromLocalStorage() {
 
 function saveTagFilenameToLocalStorage(filename) {
     window.localStorage.setItem("tagFileName", filename);
+}
+
+function getAutosaveDelayFromLocalStorage() {
+    const delay = window.localStorage.getItem("autosaveDelay");
+    if (delay === undefined || delay === null) {
+        return 5;
+    }
+    return parseInt(delay);
+}
+
+function saveAutosaveDelayToLocalStorage(delay) {
+    window.localStorage.setItem("autosaveDelay", delay);
+}
+
+function getSanityCheckStateFromLocalStorage() {
+    const enabled = window.localStorage.getItem("sanityCheckEnabled");
+    return enabled === null ? true : enabled === 'true';
+}
+
+function saveSanityCheckStateToLocalStorage(enabled) {
+    window.localStorage.setItem("sanityCheckEnabled", enabled);
 }

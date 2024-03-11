@@ -1,4 +1,7 @@
-const bannedWords = [
+const BANNED_WORDS_KEY = "bannedwords";
+const BANNED_REGEX_KEY = "bannedregexps";
+
+const defaultBannedWords = [
     "parasocial",
     "pilk",
     "flat",
@@ -24,7 +27,33 @@ const bannedWords = [
     "nudity"
 ];
 
-const bannedRegExps = [{ "regex": "#\\w+", "description": "Hashtags (e.g. #esketit, but # esketit is fine)" }]
+const defaultBannedRegExps = [{ "regex": "#\\w+", "description": "Hashtags (e.g. #esketit, but # esketit is fine)" }];
+
+let bannedWords = [];
+let bannedRegExps = [];
+
+function loadBannedWordsFromLocalStorage() {
+    const storedBannedWords = window.localStorage.getItem(BANNED_WORDS_KEY);
+    const storedBannedRegExps = window.localStorage.getItem(BANNED_REGEX_KEY);
+
+    try {
+        bannedWords = JSON.parse(storedBannedWords);
+        bannedRegExps = JSON.parse(storedBannedRegExps);
+    } catch {
+        console.log("Invalid stored bannedWords/RegExps");
+    }
+
+    if (bannedWords === null || bannedRegExps === null) {
+        // If no custom banned words were stored, load defaults
+        bannedWords = defaultBannedWords;
+        bannedRegExps = defaultBannedRegExps;
+    }
+}
+
+function saveBannedWordsToLocalStorage() {
+    window.localStorage.setItem(BANNED_WORDS_KEY, JSON.stringify(bannedWords));
+    window.localStorage.setItem(BANNED_REGEX_KEY, JSON.stringify(bannedRegExps));
+}
 
 function checkStringForBannedRegExps(str) {
     /**
