@@ -37,15 +37,23 @@ const redobutton = document.getElementById("redobutton");
 const filename_input = document.getElementById("filenameinput");
 const status_span = document.getElementById("status");
 
+const loadTags_modal = document.getElementById("loadTagsModal");
 const settings_modal = document.getElementById("settingsModal");
 const autosavedelay_input = document.getElementById("autosaveinterval");
 const bannedwords_textarea = document.getElementById("bannedwords");
+const bannedregex_textarea = document.getElementById("bannedregex");
+
+const sanityCheckContainer = document.getElementById("sanitycheckcontainer");
+const sanityCheckToggleButton = document.getElementById("sanitychecktogglebutton");
 
 let player;
 let tagsJson = loadTagsFromStorage();
 
 let autosaveInterval = null;
 let autosaveDelay = getAutosaveDelayFromLocalStorage();  // in seconds
+
+enableDisableSanityCheck(getSanityCheckStateFromLocalStorage());
+loadBannedWordsFromLocalStorage();
 
 if (tagsJson === undefined || tagsJson === null || tagsJson.length === 0) {
     // Initalize tag list to have 1 item to make it look good
@@ -83,6 +91,7 @@ convert_button.onclick = ev => {
     newHistory(tagsJson);
     renderTagList();
     renderOutput();
+    closeLoadTagsModal();
 };
 
 videoidinput_form.onsubmit = ev => {
@@ -287,6 +296,8 @@ function save() {
 
 function handleAddNewTagButton() {
     addNewTag(afterbox.valueAsNumber);
+    const newAfterBoxValue = afterbox.valueAsNumber + 1
+    afterbox.value = newAfterBoxValue > tagsJson.length ? tagsJson.length : newAfterBoxValue
 }
 
 function handleSanityCheckButton() {
@@ -327,15 +338,41 @@ function renderOutput() {
     output_textarea.value = output_header + output;
 }
 
+function showLoadTagsModal() {
+    loadTags_modal.style.display = "block";
+}
+
+function closeLoadTagsModal() {
+    loadTags_modal.style.display = "none";
+}
+
 function showSettings() {
     autosavedelay_input.value = autosaveDelay;
-    // TODO: make this configurable
-    bannedwords_textarea.value = arrayToNewlineSeparated(bannedWords);
+    showBannedWordsInSettings();
     settings_modal.style.display = "block";
 }
 
 function closeSettingsModal() {
     settings_modal.style.display = "none";
+}
+
+function handleEnableDisableSanityCheckButton() {
+    const enableSanityCheck = sanityCheckContainer.style.display == "none";
+    enableDisableSanityCheck(enableSanityCheck);
+    saveSanityCheckStateToLocalStorage(enableSanityCheck);
+}
+
+function enableDisableSanityCheck(enableSanityCheck) {
+    if(enableSanityCheck) {
+        sanityCheckContainer.style.display = "block";
+        sanityCheckToggleButton.innerText = "Disable Sanity Check"
+    } else {
+        // Clear any sanity check results
+        // TODO: have some way to ignore rendering these errors instead of clearing them
+        handleClearSanityCheckErrorButton();
+        sanityCheckContainer.style.display = "none";
+        sanityCheckToggleButton.innerText = "Enable Sanity Check";
+    }
 }
 
 function startAutoSave(delay) {
@@ -364,14 +401,36 @@ function updateAutosaveInterval() {
     startAutoSave(autosaveDelay)
 }
 
+function showDefaultBannedWordsInSettings() {
+    bannedwords_textarea.value = arrayToNewlineSeparated(defaultBannedWords);
+    bannedregex_textarea.value = JSON.stringify(defaultBannedRegExps, null, 2);
+}
+
+function showBannedWordsInSettings() {
+    bannedwords_textarea.value = arrayToNewlineSeparated(bannedWords);
+    bannedregex_textarea.value = JSON.stringify(bannedRegExps, null, 2);
+}
+
 function saveBannedWords() {
-    // TODO: implement
+    /*bannedwords_textarea.value = arrayToNewlineSeparated(bannedWords);
+    bannedregex_textarea.value = JSON.stringify(bannedRegExps, null, 2);*/
+    bannedWords = bannedwords_textarea.value.split("\n");
+    try {
+        bannedRegExps = JSON.parse(bannedregex_textarea.value);
+    } catch {
+        alert("Banned RegExps is not valid JSON. Banned word list not saved.");
+        return;
+    }
+    saveBannedWordsToLocalStorage();
+    alert("Banned word list saved!");
 }
 
 // close settings modal if clicked outside of it 
 window.onclick = function (event) {
     if (event.target == settings_modal) {
         closeSettingsModal()
+    } else if (event.target == loadTags_modal) {
+        closeLoadTagsModal()
     }
 }
 

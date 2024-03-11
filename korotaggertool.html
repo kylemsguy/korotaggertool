@@ -12,6 +12,22 @@
 </head>
 
 <body>
+    <div id="loadTagsModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="closeLoadTagsModal()">&times;</span>
+            <h1>Load Tags</h1>
+            <div id="toprowbuttoncontainer">
+                <label>Input Tag Format:</label>
+                <input type="radio" id="ktradio" name="inputtype" value="Korotagger" checked>
+                <label for="ktradio">Korotagger</label>
+                <input type="radio" id="ytradio" name="inputtype" value="YTComment">
+                <label for="ytradio">YT Comment</label>
+            </div>
+            <div><textarea id="input" rows="10" cols="80" placeholder="Paste existing tags here"></textarea></div>
+            <button id="convert">Load from !tags</button>
+        </div>
+    </div>
     <div id="settingsModal" class="modal">
         <!-- Modal content -->
         <div class="modal-content">
@@ -27,26 +43,26 @@
             <p>This feature was requested since some taggers have had problems with tag comments becoming shadowbanned
                 (or at least held for review). This check is just to flag potential problematic words. If this isn't a
                 concern, simply ignore this feature.</p>
+            <button id="sanitychecktogglebutton" onclick="handleEnableDisableSanityCheckButton()">Disable Sanity Check</button>
+            <br>
+            <br>
+            <button onClick="showDefaultBannedWordsInSettings()">Load Defaults (does not save)</button>
+            <button onClick="showBannedWordsInSettings()">Reset to current word list</button>
+            <br>
             <label for="bannedwords">Banned words</label><br>
             <textarea id="bannedwords" rows="20" cols="40" placeholder="Banned words go Here"></textarea><br>
-            <!-- Support banned regexes too -->
-            <button onClick="saveBannedWords()" disabled>Save</button><br>
+            <label for="bannedregex">Banned patterns (regex)</label><br>
+            <textarea id="bannedregex" rows="20" cols="80" placeholder="Banned regexes go here"></textarea><br>
+            
+            <button onClick="saveBannedWords()"><b>Save</b></button><br>
         </div>
     </div>
     <div class="row">
         <div class="column">
             <div id="toprowbuttoncontainer">
-                <button id="convert">Load from !tags</button>
-                <label>Input Tag Format:</label>
-                <input type="radio" id="ktradio" name="inputtype" value="Korotagger" checked>
-                <label for="ktradio">Korotagger</label>
-                <input type="radio" id="ytradio" name="inputtype" value="YTComment">
-                <label for="ytradio">YT Comment</label>
-                <span class="floatrightcontainer">
-                    <button id="settingsButton" onclick="showSettings()">Settings</button>
-                </span>
+                <button id="loadTagsButton" class="settingsButton" onclick="showLoadTagsModal()">Load Tags</button>&nbsp;
+                <button id="settingsButton" class="settingsButton" onclick="showSettings()">Settings</button>
             </div>
-            <textarea id="input" rows="3" cols="40" placeholder="Paste existing tags here"></textarea>
 
             <div id="undoredocontainer">
                 <button id="undobutton" onclick="undo()">Undo (Ctrl-Z)</button>

@@ -40,7 +40,7 @@ Try it for yourself at <https://korotaggertool.entire.website/korotaggertool.htm
 - [x] allow creating new tag at current time
 - [x] Allow importing YT comment format as well
 - [x] Implement a download button
-- [ ] Allow disabling autosave (and changing autosave delay)
+- [x] Allow disabling autosave (and changing autosave delay)
 - [ ] Add a clear button
 - [ ] Have *some* semblance of Responsive design so it works on more screens than just my MacBook Pro in fullscreen.
 - [x] Add a "Add new" button that creates a new tag at the current moment
@@ -50,3 +50,4 @@ Try it for yourself at <https://korotaggertool.entire.website/korotaggertool.htm
 - [x] Fix bug where if you insert a new tag, the list jumps to the top (jumping to where the tag was added )
 - [ ] When saving, check a timestamp and show a message if there's a newer save (to handle the case where the user has mulitple windows open at the same time)
 - [ ] Implement multiple save files.
+- [x] Move loading tags and settings into modals

@@ -30,7 +30,7 @@
     width: 40%;
 }
 
-#settingsButton {
+.settingsButton {
     font-weight: bolder;
     height: 5vh;
     width: auto;

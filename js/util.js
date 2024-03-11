@@ -214,3 +214,12 @@ function getAutosaveDelayFromLocalStorage() {
 function saveAutosaveDelayToLocalStorage(delay) {
     window.localStorage.setItem("autosaveDelay", delay);
 }
+
+function getSanityCheckStateFromLocalStorage() {
+    const enabled = window.localStorage.getItem("sanityCheckEnabled");
+    return enabled === null ? true : enabled === 'true';
+}
+
+function saveSanityCheckStateToLocalStorage(enabled) {
+    window.localStorage.setItem("sanityCheckEnabled", enabled);
+}
