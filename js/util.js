@@ -175,6 +175,24 @@ function loadTagsFromStorage() {
     }
 }
 
+function generateBoilerplateTags() {
+    // Tags taken from https://www.youtube.com/watch?v=jNQXAC9IVRw (Me at the zoo)
+    return [
+        {
+            "text": "Intro",
+            "time": 0
+        },
+        {
+            "text": "The cool thing",
+            "time": 5
+        },
+        {
+            "text": "End",
+            "time": 17
+        },
+    ];
+}
+
 function arrayToNewlineSeparated(array) {
     return array.join("\n");
 }

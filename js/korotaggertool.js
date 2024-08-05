@@ -21,6 +21,7 @@ document.addEventListener("keydown", (e) => {
     }*/
 });
 const convert_button = document.getElementById("convert");
+const clear_button = document.getElementById("clear");
 const kt_radio = document.getElementById("ktradio");
 const yt_radio = document.getElementById("ytradio");
 const padhours_check = document.getElementById("padhours");
@@ -56,9 +57,9 @@ enableDisableSanityCheck(getSanityCheckStateFromLocalStorage());
 loadBannedWordsFromLocalStorage();
 
 if (tagsJson === undefined || tagsJson === null || tagsJson.length === 0) {
-    // Initalize tag list to have 1 item to make it look good
-    tagsJson = [];
-    addNewTag();
+    // Initalize tag list to Me at the zoo tags
+    tagsJson = generateBoilerplateTags();
+    renderTagList();
     renderOutput();
 } else {
     // console.log(tagsJson);
@@ -91,6 +92,13 @@ convert_button.onclick = ev => {
     newHistory(tagsJson);
     renderTagList();
     renderOutput();
+    closeLoadTagsModal();
+};
+
+clear_button.onclick = ev => {
+    tagsJson = [];
+    addNewTag();
+    newHistory(tagsJson);
     closeLoadTagsModal();
 };
 
