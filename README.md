@@ -10,8 +10,7 @@ If you paste the output of `!tags` from korotagger, the tool will also automatic
 
 This tool may also be used for tagging streams live, but korotagger allows for collaborative tagging.
 
-Currently only supports YouTube videos and stream VODs. YouTube livestreams seem to work too (and maybe Premieres), but I haven't done much testing.
-
+Currently only supports YouTube videos and stream VODs. YouTube livestreams seem to work too (and maybe even Premieres--though I don't really see the utility in those).
 ## Libraries used/Dependencies
 - [YouTube Player iframe API](https://developers.google.com/youtube/iframe_api_reference)
 - ...that's it--it's pure vanilla JS. 
